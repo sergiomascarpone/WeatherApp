@@ -12,7 +12,22 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        initialize()
+       
+        
+    }
+    
+    private func initialize() {
+        view.backgroundColor = .cyan
+        
+        let label = UILabel()
+        label.text = "Today"
+        view.addSubview(label)
+        label.snp.makeConstraints { maker in
+            maker.left.equalToSuperview().inset(174)
+            maker.top.equalToSuperview().inset(60)
+    
+        }
     }
 
 
