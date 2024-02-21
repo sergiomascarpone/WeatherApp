@@ -22,9 +22,10 @@ class ViewController: UIViewController {
         
         let label = UILabel()
         label.text = "Today"
+        label.font = UIFont.systemFont(ofSize: 28)
         view.addSubview(label)
         label.snp.makeConstraints { maker in
-            maker.left.equalToSuperview().inset(174)
+            maker.centerX.equalToSuperview()
             maker.top.equalToSuperview().inset(60)
     
         }
