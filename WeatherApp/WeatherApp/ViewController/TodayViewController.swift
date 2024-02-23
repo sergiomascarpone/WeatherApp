@@ -16,7 +16,7 @@ class TodayViewController: UIViewController {
     private lazy var descriptionLabel = UILabel()
     private lazy var humidView = UIImageView()
     private lazy var humidLabel = UILabel()
-//    private lazy var stackViewInfoHumid = UIStackView()
+    //    private lazy var stackViewInfoHumid = UIStackView()
     private lazy var windSpeedView = UIImageView()
     private lazy var windSpeedLabel = UILabel()
     private lazy var thermoView = UIImageView()
@@ -25,17 +25,22 @@ class TodayViewController: UIViewController {
     private lazy var pressureLabel = UILabel()
     private lazy var windSockView = UIImageView()
     private lazy var windSockLabel = UILabel()
+    private lazy var shareButton = UIButton()
+    private lazy var todayButton = UIButton()
+    private lazy var todayButtonLabel = UIImageView()
+    private lazy var forecastButton = UIButton()
+    private lazy var forecastButtonLabel = UIImageView()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        initialize()
-       
+        todayInitialize()
+        
         
     }
     
-//MARK: - SetUpViews
-    private func initialize() {
+    //MARK: - SetUpViews
+    private func todayInitialize() {
         view.backgroundColor = .cyan
         
         //dateLabel
@@ -43,9 +48,9 @@ class TodayViewController: UIViewController {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "en_US")
-         
+        
         let date = Date()
-         
+        
         dateLabel.text = (dateFormatter.string(from: date))
         dateLabel.font = UIFont.systemFont(ofSize: 24)
         view.addSubview(dateLabel)
@@ -83,24 +88,24 @@ class TodayViewController: UIViewController {
         }
         
         //stackViewInfoHumid
-//        let view = UIStackView(arrangedSubviews: [humidView,
-//                                                  humidLabel
-//        ])
-//        
-//        view.axis = .vertical
-//        view.spacing = 6
-//        view.alignment = .center
-//        view.distribution = .fill
-//        
-//        view.addSubview(stackViewInfoHumid)
-//        
-//        stackViewInfoHumid.snp.makeConstraints { maker in
-//            maker.height.equalTo(80)
-//            maker.width.equalTo(80)
-//            maker.left.equalToSuperview().inset(40)
-//            maker.top.equalToSuperview().inset(350)
-//        }
-
+        //        let view = UIStackView(arrangedSubviews: [humidView,
+        //                                                  humidLabel
+        //        ])
+        //
+        //        view.axis = .vertical
+        //        view.spacing = 6
+        //        view.alignment = .center
+        //        view.distribution = .fill
+        //
+        //        view.addSubview(stackViewInfoHumid)
+        //
+        //        stackViewInfoHumid.snp.makeConstraints { maker in
+        //            maker.height.equalTo(80)
+        //            maker.width.equalTo(80)
+        //            maker.left.equalToSuperview().inset(40)
+        //            maker.top.equalToSuperview().inset(350)
+        //        }
+        
         //humidView
         humidView.image = UIImage(named: "Humid")
         view.addSubview(humidView)
@@ -196,8 +201,80 @@ class TodayViewController: UIViewController {
             maker.top.equalToSuperview().inset(560)
         }
         
+        //shareButton
+        shareButton.backgroundColor = .green
+        shareButton.setTitle("Share Weather", for: .normal)
+        shareButton.setTitleColor(.black, for: .normal)
+        shareButton.layer.cornerRadius = 20
+        view.addSubview(shareButton)
+        shareButton.snp.makeConstraints { maker in
+            maker.centerX.equalToSuperview()
+            maker.width.equalTo(150)
+            maker.bottom.equalToSuperview().inset(100)
+            maker.height.equalTo(40)
+        }
+        shareButton.addTarget(self, action: #selector(buttonShareTapped), for: .touchUpInside)
+        
+        //todayButton
+        todayButton.setTitle("Today", for: .normal)
+        todayButton.setTitleColor(.black, for: .normal)
+        todayButton.titleLabel?.numberOfLines = 0
+        view.addSubview(todayButton)
+        todayButton.snp.makeConstraints { maker in
+            maker.left.equalToSuperview().inset(40)
+            maker.bottom.equalToSuperview().inset(40)
+        }
+        todayButton.addTarget(self, action: #selector(buttonTodayTapped), for: .touchUpInside)
+        
+        //todayButtonLabel
+        todayButtonLabel.image = UIImage(named: "Today")
+        view.addSubview(todayButtonLabel)
+        todayButtonLabel.snp.makeConstraints { maker in
+            maker.height.equalTo(30)
+            maker.width.equalTo(30)
+            maker.left.equalToSuperview().inset(50)
+            maker.bottom.equalToSuperview().inset(80)
+        }
+        
+        //forecastButton
+        forecastButton.setTitle("Forecast", for: .normal)
+        forecastButton.setTitleColor(.black, for: .normal)
+        forecastButton.titleLabel?.numberOfLines = 0
+        view.addSubview(forecastButton)
+        forecastButton.snp.makeConstraints { maker in
+            maker.right.equalToSuperview().inset(40)
+            maker.bottom.equalToSuperview().inset(40)
+        }
+        forecastButton.addTarget(self, action: #selector(buttonForecastTapped), for: .touchUpInside)
+        
+        //forecastButtonLabel
+        forecastButtonLabel.image = UIImage(named: "Forecast")
+        view.addSubview(forecastButtonLabel)
+        forecastButtonLabel.snp.makeConstraints { maker in
+            maker.height.equalTo(30)
+            maker.width.equalTo(30)
+            maker.right.equalToSuperview().inset(50)
+            maker.bottom.equalToSuperview().inset(80)
+        }
+        
     }
-
-
+    
+    @objc func buttonShareTapped(_ sender: UIButton) {
+        let url = URL(string: "https://www.apple.com")!
+        UIApplication.shared.open(url, options: [:])
+    }
+    
+    @objc private func buttonTodayTapped() {
+        let viewController = TodayViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true)
+    }
+    
+    @objc private func buttonForecastTapped() {
+        let viewController = ForecastViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true)
+    }
+    
 }
 
