@@ -222,7 +222,7 @@ class TodayViewController: UIViewController {
         view.addSubview(todayButton)
         todayButton.snp.makeConstraints { maker in
             maker.left.equalToSuperview().inset(40)
-            maker.bottom.equalToSuperview().inset(40)
+            maker.bottom.equalToSuperview().inset(20)
         }
         todayButton.addTarget(self, action: #selector(buttonTodayTapped), for: .touchUpInside)
         
@@ -233,7 +233,7 @@ class TodayViewController: UIViewController {
             maker.height.equalTo(30)
             maker.width.equalTo(30)
             maker.left.equalToSuperview().inset(50)
-            maker.bottom.equalToSuperview().inset(80)
+            maker.bottom.equalToSuperview().inset(50)
         }
         
         //forecastButton
@@ -243,7 +243,7 @@ class TodayViewController: UIViewController {
         view.addSubview(forecastButton)
         forecastButton.snp.makeConstraints { maker in
             maker.right.equalToSuperview().inset(40)
-            maker.bottom.equalToSuperview().inset(40)
+            maker.bottom.equalToSuperview().inset(20)
         }
         forecastButton.addTarget(self, action: #selector(buttonForecastTapped), for: .touchUpInside)
         
@@ -254,7 +254,7 @@ class TodayViewController: UIViewController {
             maker.height.equalTo(30)
             maker.width.equalTo(30)
             maker.right.equalToSuperview().inset(50)
-            maker.bottom.equalToSuperview().inset(80)
+            maker.bottom.equalToSuperview().inset(50)
         }
         
     }
