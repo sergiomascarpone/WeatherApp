@@ -101,11 +101,14 @@ class ForecastViewController: UIViewController {
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
     tableView.rowHeight = 80
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { maker in
-            maker.top.equalToSuperview().inset(60)
-            maker.bottom.equalToSuperview().inset(90)
-            maker.edges.equalToSuperview()
-    }
+        tableView.snp.makeConstraints { (make) -> Void in
+            make.left.equalTo(self.view)
+            make.right.equalTo(self.view)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.top.equalToSuperview().inset(90)
+            make.bottom.equalToSuperview().inset(80)
+        }
 
 }
     

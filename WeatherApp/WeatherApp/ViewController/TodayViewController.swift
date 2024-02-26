@@ -41,7 +41,7 @@ class TodayViewController: UIViewController {
     
     //MARK: - SetUpViews
     private func todayInitialize() {
-        view.backgroundColor = .cyan
+        view.backgroundColor = .systemBackground
         
         //dateLabel
         let dateFormatter = DateFormatter()
