@@ -37,10 +37,6 @@ class ForecastViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureTableView()
         forecastInitialize()
-
-       
-        
-        
     }
     
     //MARK: - SetUpViews
