@@ -7,8 +7,9 @@
 
 import SnapKit
 import UIKit
+import CoreLocation
 
-class TodayViewController: UIViewController {
+class TodayViewController: UIViewController, CLLocationManagerDelegate {
     
     private lazy var dateLabel = UILabel()
     private lazy var imageView = UIImageView()
@@ -31,12 +32,21 @@ class TodayViewController: UIViewController {
     private lazy var forecastButton = UIButton()
     private lazy var forecastButtonLabel = UIImageView()
     
+    private lazy var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         todayInitialize()
+        setupLocationManager()
         
         
+    }
+    
+    private func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     //MARK: - SetUpViews
