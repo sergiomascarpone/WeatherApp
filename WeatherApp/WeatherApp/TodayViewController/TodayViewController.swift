@@ -196,18 +196,6 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         let url = URL(string: "https://www.apple.com")!
         UIApplication.shared.open(url, options: [:])
     }
-//    
-//    @objc private func buttonTodayTapped() {
-//        let viewController = TodayViewController()
-//        viewController.modalPresentationStyle = .fullScreen
-//        self.present(viewController, animated: true)
-//    }
-//    
-//    @objc private func buttonForecastTapped() {
-//        let viewController = ForecastViewController()
-//        viewController.modalPresentationStyle = .fullScreen
-//        self.present(viewController, animated: true)
-//    }
     
 }
 

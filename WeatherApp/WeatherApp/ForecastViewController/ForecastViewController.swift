@@ -12,24 +12,20 @@ class ForecastViewController: UIViewController {
     
     private lazy var forecastLabel = UITextField()
     private lazy var tableView = UITableView()
-    private lazy var reuseIdentifier = "Forecast"
-    private lazy var todayButton = UIButton()
-    private lazy var todayButtonLabel = UIImageView()
-    private lazy var forecastButton = UIButton()
-    private lazy var forecastButtonLabel = UIImageView()
+    //    private lazy var reuseIdentifier = "Forecast"
     
-    //    private lazy var dayForecast = [
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: ""),
-    //        weakDay(image: "", date: "", weather: "", temperature: "")
-    //    ]
+    private lazy var dayForecast = [
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,54 +37,12 @@ class ForecastViewController: UIViewController {
     //MARK: - SetUpViews
     private func forecastInitialize() {
         
-        forecastLabel.text = "forecast"
+        forecastLabel.text = "Forecast"
         forecastLabel.font = UIFont.systemFont(ofSize: 24)
         view.addSubview(forecastLabel)
         forecastLabel.snp.makeConstraints { maker in
             maker.centerX.equalToSuperview()
-            maker.top.equalToSuperview().inset(60)
-        }
-        
-        //todayButton
-        todayButton.setTitle("Today", for: .normal)
-        todayButton.setTitleColor(.black, for: .normal)
-        todayButton.titleLabel?.numberOfLines = 0
-        view.addSubview(todayButton)
-        todayButton.snp.makeConstraints { maker in
-            maker.left.equalToSuperview().inset(40)
-            maker.bottom.equalToSuperview().inset(20)
-        }
-        todayButton.addTarget(self, action: #selector(buttonTodayTapped), for: .touchUpInside)
-        
-        //todayButtonLabel
-        todayButtonLabel.image = UIImage(named: "today")
-        view.addSubview(todayButtonLabel)
-        todayButtonLabel.snp.makeConstraints { maker in
-            maker.height.equalTo(30)
-            maker.width.equalTo(30)
-            maker.left.equalToSuperview().inset(50)
-            maker.bottom.equalToSuperview().inset(50)
-        }
-        
-        //forecastButton
-        forecastButton.setTitle("Forecast", for: .normal)
-        forecastButton.setTitleColor(.black, for: .normal)
-        forecastButton.titleLabel?.numberOfLines = 0
-        view.addSubview(forecastButton)
-        forecastButton.snp.makeConstraints { maker in
-            maker.right.equalToSuperview().inset(40)
-            maker.bottom.equalToSuperview().inset(20)
-        }
-        //        forecastButton.addTarget(self, action: #selector(buttonForecastTapped), for: .touchUpInside)
-        
-        //forecastButtonLabel
-        forecastButtonLabel.image = UIImage(named: "Forecast")
-        view.addSubview(forecastButtonLabel)
-        forecastButtonLabel.snp.makeConstraints { maker in
-            maker.height.equalTo(30)
-            maker.width.equalTo(30)
-            maker.right.equalToSuperview().inset(50)
-            maker.bottom.equalToSuperview().inset(50)
+            maker.top.equalToSuperview().inset(50)
         }
         
     }
@@ -96,7 +50,7 @@ class ForecastViewController: UIViewController {
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(CustomCell.self, forCellReuseIdentifier: "cell")
         tableView.rowHeight = 80
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) -> Void in
@@ -104,24 +58,18 @@ class ForecastViewController: UIViewController {
             make.right.equalTo(self.view)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-            make.top.equalToSuperview().inset(90)
+            make.top.equalToSuperview().inset(100)
             make.bottom.equalToSuperview().inset(80)
         }
         
     }
     
-    @objc private func buttonTodayTapped() {
-        let viewController = TodayViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        dismiss(animated: true)
-        //        self.present(viewController, animated: true)
+    struct weakDay {
+        var image: String
+        var date: String
+        var temperature: String
+        var summary: String
     }
-    
-    //    @objc private func buttonForecastTapped() {
-    //        let viewController = ForecastViewController()
-    //        viewController.modalPresentationStyle = .fullScreen
-    //        self.present(viewController, animated: true)
-    //    }
     
 }
 
@@ -129,17 +77,40 @@ class ForecastViewController: UIViewController {
 extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return dayForecast.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)
-        cell?.imageView?.image = UIImage(named: "cloud")
-        cell?.textLabel?.text = "26.04.2024 | 0:00"
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
+        let weather = dayForecast[indexPath.row]
+        cell.imageLabel.image = UIImage(named: weather.image)
+        cell.dateLabel.text = weather.date
+        cell.temperatureLabel.text = weather.temperature
+        cell.summaryLabel.text = weather.summary
+        return cell
     }
-    
-    
 }
 
+class CustomCell: UITableViewCell {
+    var imageLabel = UIImageView()
+    var dateLabel = UILabel()
+    var temperatureLabel = UILabel()
+    var summaryLabel = UILabel()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubview(imageLabel)
+        addSubview(dateLabel)
+        addSubview(temperatureLabel)
+        addSubview(summaryLabel)
+        imageLabel.frame = CGRect(x: 20, y: 10, width: 50, height: 50)
+        dateLabel.frame = CGRect(x: 100, y: 10, width: 140, height: 20)
+        temperatureLabel.frame = CGRect(x: 300, y: 25, width: 150, height: 25)
+        summaryLabel.frame = CGRect(x: 100, y: 20, width: 120, height: 60)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Error")
+    }
+}
 
