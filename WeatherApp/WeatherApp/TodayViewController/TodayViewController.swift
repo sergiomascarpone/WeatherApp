@@ -26,11 +26,20 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var windSockView = UIImageView()
     private lazy var windSockLabel = UILabel()
     private lazy var shareButton = UIButton()
-    //    private lazy var locationManager = CLLocationManager()
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         todayInitialize()
+        getLocation()
+    }
+    
+    //LocationManager
+    private func getLocation() {
+        LocationManager.shared.getCorrentLocation { location in
+            print(String(describing:location))
+        }
     }
     
     //MARK: - SetUpViews
@@ -96,10 +105,11 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         humidLabel.font = UIFont(name: "Times New Roman", size: 22)
         view.addSubview(humidLabel)
         humidLabel.snp.makeConstraints { maker in
+//            maker.top.equalTo(humidView.snp.bottom).offset(0)
             maker.left.equalToSuperview().inset(55)
             maker.top.equalToSuperview().inset(440)
         }
-        
+
         //windSpeedView
         windSpeedView.image = UIImage(named: "windySpeed")
         view.addSubview(windSpeedView)
@@ -198,4 +208,3 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     }
     
 }
-
