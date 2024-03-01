@@ -26,7 +26,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var windSockView = UIImageView()
     private lazy var windSockLabel = UILabel()
     private lazy var shareButton = UIButton()
-//    let weatherView = WeatherView()
+//    let weatherView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +88,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
             maker.centerX.equalToSuperview()
             maker.top.equalToSuperview().inset(280)
         }
-//        
+        
 //        view.addSubview(weatherView)
 //        weatherView.snp.makeConstraints { maker in
 //            maker.height.equalTo(120)
@@ -97,7 +97,6 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //            maker.top.equalToSuperview().inset(350)
 //        }
 
-        
         //humidView
         humidView.image = UIImage(named: "humid")
         view.addSubview(humidView)
