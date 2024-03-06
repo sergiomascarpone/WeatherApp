@@ -40,7 +40,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
             print(String(describing:location))
         }
     }
-    
+        
     //MARK: - SetUpViews
     private func todayInitialize() {
         view.backgroundColor = .systemBackground
@@ -89,6 +89,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
             maker.top.equalToSuperview().inset(280)
         }
         
+        //View
 //        view.addSubview(weatherView)
 //        weatherView.snp.makeConstraints { maker in
 //            maker.height.equalTo(120)
@@ -97,25 +98,25 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //            maker.top.equalToSuperview().inset(350)
 //        }
 
-        //humidView
-        humidView.image = UIImage(named: "humid")
-        view.addSubview(humidView)
-        humidView.snp.makeConstraints { maker in
-            maker.height.equalTo(80)
-            maker.width.equalTo(80)
-            maker.left.equalToSuperview().inset(40)
-            maker.top.equalToSuperview().inset(350)
-        }
-        
-        //humidLabel
-        humidLabel.text = "0 mm"
-        humidLabel.font = UIFont(name: "Times New Roman", size: 22)
-        view.addSubview(humidLabel)
-        humidLabel.snp.makeConstraints { maker in
-//            maker.top.equalTo(humidView.snp.bottom).offset(0)
-            maker.left.equalToSuperview().inset(55)
-            maker.top.equalToSuperview().inset(440)
-        }
+//        //humidView
+//        humidView.image = UIImage(named: "humid")
+//        view.addSubview(humidView)
+//        humidView.snp.makeConstraints { maker in
+//            maker.height.equalTo(80)
+//            maker.width.equalTo(80)
+//            maker.left.equalToSuperview().inset(40)
+//            maker.top.equalToSuperview().inset(350)
+//        }
+//        
+//        //humidLabel
+//        humidLabel.text = "0 mm"
+//        humidLabel.font = UIFont(name: "Times New Roman", size: 22)
+//        view.addSubview(humidLabel)
+//        humidLabel.snp.makeConstraints { maker in
+////            maker.top.equalTo(humidView.snp.bottom).offset(0)
+//            maker.left.equalToSuperview().inset(55)
+//            maker.top.equalToSuperview().inset(440)
+//        }
 
         //windSpeedView
         windSpeedView.image = UIImage(named: "windySpeed")
