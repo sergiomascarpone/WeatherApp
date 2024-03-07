@@ -15,10 +15,10 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var imageView = UIImageView()
     private lazy var cityNameLocationLabel = UILabel()
     private lazy var descriptionLabel = UILabel()
-    private lazy var humidView = UIImageView()
-    private lazy var humidLabel = UILabel()
-    private lazy var windSpeedView = UIImageView()
-    private lazy var windSpeedLabel = UILabel()
+//    private lazy var humidView = UIImageView()
+//    private lazy var humidLabel = UILabel()
+//    private lazy var windSpeedView = UIImageView()
+//    private lazy var windSpeedLabel = UILabel()
     private lazy var thermoView = UIImageView()
     private lazy var thermoLabel = UILabel()
     private lazy var pressureView = UIImageView()
@@ -26,12 +26,23 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var windSockView = UIImageView()
     private lazy var windSockLabel = UILabel()
     private lazy var shareButton = UIButton()
-//    let weatherView = UIStackView()
+    
+    private lazy var humid: WeatherView = {
+        let humid = WeatherView(state: .humid)
+        return humid
+    }()
+    
+    private lazy var wind: WeatherView = {
+        let wind = WeatherView(state: .wind)
+        return wind
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         todayInitialize()
         getLocation()
+        view.addSubview(humid)
+        view.addSubview(wind)
     }
 
     //LocationManager
@@ -89,15 +100,6 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
             maker.top.equalToSuperview().inset(280)
         }
         
-        //View
-//        view.addSubview(weatherView)
-//        weatherView.snp.makeConstraints { maker in
-//            maker.height.equalTo(120)
-//            maker.width.equalTo(100)
-//            maker.left.equalToSuperview().inset(30)
-//            maker.top.equalToSuperview().inset(350)
-//        }
-
 //        //humidView
 //        humidView.image = UIImage(named: "humid")
 //        view.addSubview(humidView)
@@ -118,24 +120,24 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //            maker.top.equalToSuperview().inset(440)
 //        }
 
-        //windSpeedView
-        windSpeedView.image = UIImage(named: "windySpeed")
-        view.addSubview(windSpeedView)
-        windSpeedView.snp.makeConstraints { maker in
-            maker.height.equalTo(80)
-            maker.width.equalTo(80)
-            maker.centerX.equalToSuperview()
-            maker.top.equalToSuperview().inset(350)
-        }
-        
-        //windSpeedLabel
-        windSpeedLabel.text = "0.45 km/h"
-        windSpeedLabel.font = UIFont(name: "Times New Roman", size: 22)
-        view.addSubview(windSpeedLabel)
-        windSpeedLabel.snp.makeConstraints { maker in
-            maker.centerX.equalToSuperview()
-            maker.top.equalToSuperview().inset(440)
-        }
+//        //windSpeedView
+//        windSpeedView.image = UIImage(named: "windySpeed")
+//        view.addSubview(windSpeedView)
+//        windSpeedView.snp.makeConstraints { maker in
+//            maker.height.equalTo(80)
+//            maker.width.equalTo(80)
+//            maker.centerX.equalToSuperview()
+//            maker.top.equalToSuperview().inset(350)
+//        }
+//        
+//        //windSpeedLabel
+//        windSpeedLabel.text = "0.45 km/h"
+//        windSpeedLabel.font = UIFont(name: "Times New Roman", size: 22)
+//        view.addSubview(windSpeedLabel)
+//        windSpeedLabel.snp.makeConstraints { maker in
+//            maker.centerX.equalToSuperview()
+//            maker.top.equalToSuperview().inset(440)
+//        }
         
         //thermoView
         thermoView.image = UIImage(named: "temperature")
