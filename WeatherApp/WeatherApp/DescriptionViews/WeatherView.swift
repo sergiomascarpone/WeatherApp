@@ -7,7 +7,6 @@
 import SnapKit
 import UIKit
 
-
 class WeatherView: UIView {
     private let state: WeatherCase
     
