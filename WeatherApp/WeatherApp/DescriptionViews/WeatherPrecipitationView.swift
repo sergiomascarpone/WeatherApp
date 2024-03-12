@@ -38,7 +38,6 @@ class WeatherPrecipitationView: UIView {
         self.addSubview(image)
         self.addSubview(subtitle)
         
-        image.backgroundColor = .red
         image.snp.makeConstraints { maker in
             maker.height.equalTo(116)
             maker.width.equalTo(90)
@@ -48,15 +47,14 @@ class WeatherPrecipitationView: UIView {
         
         subtitle.text = "19 mm"
         subtitle.snp.makeConstraints { maker in
-                   maker.left.equalToSuperview().inset(58)
-                   maker.top.equalToSuperview().inset(450)
-               }
-        
+            maker.left.equalToSuperview().inset(58)
+            maker.top.equalToSuperview().inset(450)
+        }
         image.image = state.image
     }
     
     private func setupText(_ text: String) {
         self.subtitle.text = text
     }
-   
+    
 }

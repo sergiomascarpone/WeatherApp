@@ -23,8 +23,8 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //    private lazy var thermoLabel = UILabel()
 //    private lazy var pressureView = UIImageView()
 //    private lazy var pressureLabel = UILabel()
-    private lazy var windSockView = UIImageView()
-    private lazy var windSockLabel = UILabel()
+//    private lazy var windSockView = UIImageView()
+//    private lazy var windSockLabel = UILabel()
     private lazy var shareButton = UIButton()
     
     private lazy var precipitation: WeatherPrecipitationView = {

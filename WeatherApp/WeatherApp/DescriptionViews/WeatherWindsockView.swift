@@ -4,7 +4,6 @@
 //
 //  Created by Sergio Mascarpone on 11.03.24.
 //
-
 import SnapKit
 import UIKit
 
@@ -16,20 +15,20 @@ class WeatherWindsockView: UIView {
         image.contentMode = .scaleAspectFit
         return image
     }()
-
-private lazy var subtitle: UILabel = {
-    let subtitle = UILabel()
-    subtitle.font = UIFont(name: "Times New Roman", size: 20)
-    subtitle.textColor = .black
-    subtitle.textAlignment = .center
-    return subtitle
-}()
-
-init(state: WeatherCase) {
-    self.state = state
-    super.init(frame: .zero)
-    setupUI()
-}
+    
+    private lazy var subtitle: UILabel = {
+        let subtitle = UILabel()
+        subtitle.font = UIFont(name: "Times New Roman", size: 20)
+        subtitle.textColor = .black
+        subtitle.textAlignment = .center
+        return subtitle
+    }()
+    
+    init(state: WeatherCase) {
+        self.state = state
+        super.init(frame: .zero)
+        setupUI()
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -52,7 +51,6 @@ init(state: WeatherCase) {
             maker.left.equalToSuperview().inset(250)
             maker.top.equalToSuperview().inset(580)
         }
-        
         image.image = state.image
     }
     

@@ -4,7 +4,6 @@
 //
 //  Created by Sergio Mascarpone on 11.03.24.
 //
-
 import SnapKit
 import UIKit
 
@@ -39,7 +38,6 @@ class WeatherPressureView: UIView {
         self.addSubview(image)
         self.addSubview(subtitle)
         
-        image.backgroundColor = .red
         image.snp.makeConstraints { maker in
             maker.height.equalTo(116)
             maker.width.equalTo(90)
@@ -52,7 +50,6 @@ class WeatherPressureView: UIView {
             maker.left.equalToSuperview().inset(98)
             maker.top.equalToSuperview().inset(580)
         }
-        
         image.image = state.image
     }
     
