@@ -8,20 +8,20 @@ import Foundation
 import UIKit
 
 enum WeatherCase {
-    case humid
+    case precipitation
     case wind
-    case temperature
+    case humidity
     case pressure
     case windsock
     
     var image: UIImage! {
         switch self {
-        case .humid:
-            return UIImage(named: "humid")
+        case .precipitation:
+            return UIImage(named: "precipitation")
         case .wind:
             return UIImage(named: "windySpeed")
-        case .temperature:
-            return UIImage(named: "temperature")
+        case .humidity:
+            return UIImage(named: "humidity")
         case .pressure:
             return UIImage(named: "pressure")
         case .windsock:

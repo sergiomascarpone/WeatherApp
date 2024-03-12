@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class WeatherView: UIView {
+class WeatherPrecipitationView: UIView {
     private let state: WeatherCase
     
     private lazy var image: UIImageView = {
@@ -18,7 +18,7 @@ class WeatherView: UIView {
     
     private lazy var subtitle: UILabel = {
         let subtitle = UILabel()
-        subtitle.font = UIFont(name: "Times New Roman", size: 22)
+        subtitle.font = UIFont(name: "Times New Roman", size: 20)
         subtitle.textColor = .black
         subtitle.textAlignment = .center
         return subtitle
@@ -38,18 +38,17 @@ class WeatherView: UIView {
         self.addSubview(image)
         self.addSubview(subtitle)
         
-        image.backgroundColor = .systemMint
         image.snp.makeConstraints { maker in
             maker.height.equalTo(116)
-            maker.width.equalTo(80)
+            maker.width.equalTo(90)
             maker.left.equalToSuperview().inset(40)
             maker.top.equalToSuperview().inset(350)
         }
         
-        subtitle.text = "9 mm"
+        subtitle.text = "19 mm"
         subtitle.snp.makeConstraints { maker in
-                   maker.left.equalToSuperview().inset(55)
-                   maker.top.equalToSuperview().inset(440)
+                   maker.left.equalToSuperview().inset(58)
+                   maker.top.equalToSuperview().inset(450)
                }
         
         image.image = state.image

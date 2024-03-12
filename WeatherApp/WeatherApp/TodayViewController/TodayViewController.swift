@@ -27,13 +27,13 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var windSockLabel = UILabel()
     private lazy var shareButton = UIButton()
     
-    private lazy var humid: WeatherView = {
-        let humid = WeatherView(state: .humid)
+    private lazy var humid: WeatherPrecipitationView = {
+        let humid = WeatherPrecipitationView(state: .precipitation)
         return humid
     }()
     
-    private lazy var wind: WeatherView = {
-        let wind = WeatherView(state: .wind)
+    private lazy var wind: WeatherWindView = {
+        let wind = WeatherWindView(state: .wind)
         return wind
     }()
     
@@ -139,24 +139,24 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //            maker.top.equalToSuperview().inset(440)
 //        }
         
-        //thermoView
-        thermoView.image = UIImage(named: "temperature")
-        view.addSubview(thermoView)
-        thermoView.snp.makeConstraints { maker in
-            maker.height.equalTo(80)
-            maker.width.equalTo(80)
-            maker.right.equalToSuperview().inset(40)
-            maker.top.equalToSuperview().inset(350)
-        }
+//        //thermoView
+//        thermoView.image = UIImage(named: "temperature")
+//        view.addSubview(thermoView)
+//        thermoView.snp.makeConstraints { maker in
+//            maker.height.equalTo(80)
+//            maker.width.equalTo(80)
+//            maker.right.equalToSuperview().inset(40)
+//            maker.top.equalToSuperview().inset(350)
+//        }
         
-        //thermoLabel
-        thermoLabel.text = "69 %"
-        thermoLabel.font = UIFont(name: "Times New Roman", size: 22)
-        view.addSubview(thermoLabel)
-        thermoLabel.snp.makeConstraints { maker in
-            maker.right.equalToSuperview().inset(55)
-            maker.top.equalToSuperview().inset(440)
-        }
+//        //thermoLabel
+//        thermoLabel.text = "69 %"
+//        thermoLabel.font = UIFont(name: "Times New Roman", size: 22)
+//        view.addSubview(thermoLabel)
+//        thermoLabel.snp.makeConstraints { maker in
+//            maker.right.equalToSuperview().inset(55)
+//            maker.top.equalToSuperview().inset(440)
+//        }
         
         //pressureView
         pressureView.image = UIImage(named: "pressure")
