@@ -19,17 +19,17 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //    private lazy var humidLabel = UILabel()
 //    private lazy var windSpeedView = UIImageView()
 //    private lazy var windSpeedLabel = UILabel()
-    private lazy var thermoView = UIImageView()
-    private lazy var thermoLabel = UILabel()
-    private lazy var pressureView = UIImageView()
-    private lazy var pressureLabel = UILabel()
+//    private lazy var thermoView = UIImageView()
+//    private lazy var thermoLabel = UILabel()
+//    private lazy var pressureView = UIImageView()
+//    private lazy var pressureLabel = UILabel()
     private lazy var windSockView = UIImageView()
     private lazy var windSockLabel = UILabel()
     private lazy var shareButton = UIButton()
     
-    private lazy var humid: WeatherPrecipitationView = {
-        let humid = WeatherPrecipitationView(state: .precipitation)
-        return humid
+    private lazy var precipitation: WeatherPrecipitationView = {
+        let precipitation = WeatherPrecipitationView(state: .precipitation)
+        return precipitation
     }()
     
     private lazy var wind: WeatherWindView = {
@@ -37,12 +37,30 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         return wind
     }()
     
+    private lazy var humidity: WeatherHumidityView = {
+        let humidity = WeatherHumidityView(state: .humidity)
+        return humidity
+    }()
+    
+    private lazy var pressure: WeatherPressureView = {
+        let pressure = WeatherPressureView(state: .pressure)
+        return pressure
+    }()
+    
+    private lazy var windSock: WeatherWindsockView = {
+        let windSock = WeatherWindsockView(state: .windsock)
+        return windSock
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         todayInitialize()
         getLocation()
-        view.addSubview(humid)
+        view.addSubview(precipitation)
         view.addSubview(wind)
+        view.addSubview(humidity)
+        view.addSubview(pressure)
+        view.addSubview(windSock)
     }
 
     //LocationManager
@@ -158,43 +176,43 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //            maker.top.equalToSuperview().inset(440)
 //        }
         
-        //pressureView
-        pressureView.image = UIImage(named: "pressure")
-        view.addSubview(pressureView)
-        pressureView.snp.makeConstraints { maker in
-            maker.height.equalTo(70)
-            maker.width.equalTo(70)
-            maker.left.equalToSuperview().inset(80)
-            maker.top.equalToSuperview().inset(480)
-        }
+//        //pressureView
+//        pressureView.image = UIImage(named: "pressure")
+//        view.addSubview(pressureView)
+//        pressureView.snp.makeConstraints { maker in
+//            maker.height.equalTo(70)
+//            maker.width.equalTo(70)
+//            maker.left.equalToSuperview().inset(80)
+//            maker.top.equalToSuperview().inset(480)
+//        }
+//        
+//        //pressureLabel
+//        pressureLabel.text = "1021 hPa"
+//        pressureLabel.font = UIFont(name: "Times New Roman", size: 22)
+//        view.addSubview(pressureLabel)
+//        pressureLabel.snp.makeConstraints { maker in
+//            maker.left.equalToSuperview().inset(75)
+//            maker.top.equalToSuperview().inset(560)
+//        }
         
-        //pressureLabel
-        pressureLabel.text = "1021 hPa"
-        pressureLabel.font = UIFont(name: "Times New Roman", size: 22)
-        view.addSubview(pressureLabel)
-        pressureLabel.snp.makeConstraints { maker in
-            maker.left.equalToSuperview().inset(75)
-            maker.top.equalToSuperview().inset(560)
-        }
-        
-        //windSockView
-        windSockView.image = UIImage(named: "windSock")
-        view.addSubview(windSockView)
-        windSockView.snp.makeConstraints { maker in
-            maker.height.equalTo(70)
-            maker.width.equalTo(70)
-            maker.right.equalToSuperview().inset(80)
-            maker.top.equalToSuperview().inset(480)
-        }
-        
-        //windSockLabel
-        windSockLabel.text = "S"
-        windSockLabel.font = UIFont(name: "Times New Roman", size: 22)
-        view.addSubview(windSockLabel)
-        windSockLabel.snp.makeConstraints { maker in
-            maker.right.equalToSuperview().inset(75)
-            maker.top.equalToSuperview().inset(560)
-        }
+//        //windSockView
+//        windSockView.image = UIImage(named: "windSock")
+//        view.addSubview(windSockView)
+//        windSockView.snp.makeConstraints { maker in
+//            maker.height.equalTo(70)
+//            maker.width.equalTo(70)
+//            maker.right.equalToSuperview().inset(80)
+//            maker.top.equalToSuperview().inset(480)
+//        }
+//        
+//        //windSockLabel
+//        windSockLabel.text = "S"
+//        windSockLabel.font = UIFont(name: "Times New Roman", size: 22)
+//        view.addSubview(windSockLabel)
+//        windSockLabel.snp.makeConstraints { maker in
+//            maker.right.equalToSuperview().inset(75)
+//            maker.top.equalToSuperview().inset(560)
+//        }
 
         //shareButton
         shareButton.backgroundColor = .green

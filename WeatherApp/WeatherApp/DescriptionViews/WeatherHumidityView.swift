@@ -39,17 +39,24 @@ class WeatherHumidityView: UIView {
         self.addSubview(image)
         self.addSubview(subtitle)
         
+        image.backgroundColor = .red
         image.snp.makeConstraints { maker in
-            maker.height.equalTo(80)
-            maker.width.equalTo(80)
-            maker.right.equalToSuperview().inset(40)
+            maker.height.equalTo(116)
+            maker.width.equalTo(90)
+            maker.left.equalToSuperview().inset(270)
             maker.top.equalToSuperview().inset(350)
         }
         
-        subtitle.text = "69 %"
+        subtitle.text = "90 %"
         subtitle.snp.makeConstraints { maker in
-            maker.right.equalToSuperview().inset(55)
-            maker.top.equalToSuperview().inset(440)
+            maker.left.equalToSuperview().inset(298)
+            maker.top.equalToSuperview().inset(450)
         }
+        
+        image.image = state.image
+    }
+    
+    private func setupText(_ text: String) {
+        self.subtitle.text = text
     }
 }

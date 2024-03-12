@@ -17,11 +17,11 @@ enum WeatherCase {
     var image: UIImage! {
         switch self {
         case .precipitation:
-            return UIImage(named: "precipitation")
+            return UIImage(named: "humid")
         case .wind:
             return UIImage(named: "windySpeed")
         case .humidity:
-            return UIImage(named: "humidity")
+            return UIImage(named: "termometer")
         case .pressure:
             return UIImage(named: "pressure")
         case .windsock:

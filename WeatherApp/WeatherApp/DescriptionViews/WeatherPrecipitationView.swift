@@ -38,6 +38,7 @@ class WeatherPrecipitationView: UIView {
         self.addSubview(image)
         self.addSubview(subtitle)
         
+        image.backgroundColor = .red
         image.snp.makeConstraints { maker in
             maker.height.equalTo(116)
             maker.width.equalTo(90)
