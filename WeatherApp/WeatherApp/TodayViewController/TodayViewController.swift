@@ -27,6 +27,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //    private lazy var windSockLabel = UILabel()
     private lazy var shareButton = UIButton()
     
+    //Views
     private lazy var precipitation: WeatherPrecipitationView = {
         let precipitation = WeatherPrecipitationView(state: .precipitation)
         return precipitation

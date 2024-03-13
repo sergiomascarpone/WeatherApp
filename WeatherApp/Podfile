@@ -9,5 +9,6 @@ target 'WeatherApp' do
 
 pod 'SnapKit'
 pod 'SwiftGen'
+pod 'Alamofire'
 
 end
