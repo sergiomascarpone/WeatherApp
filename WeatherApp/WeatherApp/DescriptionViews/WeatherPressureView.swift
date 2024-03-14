@@ -18,6 +18,7 @@ class WeatherPressureView: UIView {
     
     private lazy var subtitle: UILabel = {
         let subtitle = UILabel()
+        subtitle.text = " hPa"
         subtitle.font = UIFont(name: "Times New Roman", size: 20)
         subtitle.textColor = .black
         subtitle.textAlignment = .center
@@ -45,7 +46,6 @@ class WeatherPressureView: UIView {
             maker.top.equalToSuperview().inset(480)
         }
         
-        subtitle.text = "1021 hPa"
         subtitle.snp.makeConstraints { maker in
             maker.left.equalToSuperview().inset(98)
             maker.top.equalToSuperview().inset(580)

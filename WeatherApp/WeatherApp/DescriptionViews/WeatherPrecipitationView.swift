@@ -45,7 +45,7 @@ class WeatherPrecipitationView: UIView {
             maker.top.equalToSuperview().inset(350)
         }
         
-        subtitle.text = "19 mm"
+        subtitle.text = " mm"
         subtitle.snp.makeConstraints { maker in
             maker.left.equalToSuperview().inset(58)
             maker.top.equalToSuperview().inset(450)

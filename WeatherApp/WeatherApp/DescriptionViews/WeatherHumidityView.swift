@@ -18,6 +18,7 @@ class WeatherHumidityView: UIView {
     
     private lazy var subtitle: UILabel = {
         let subtitle = UILabel()
+        subtitle.text = " %"
         subtitle.font = UIFont(name: "Times New Roman", size: 20)
         subtitle.textColor = .black
         subtitle.textAlignment = .center
@@ -45,7 +46,6 @@ class WeatherHumidityView: UIView {
             maker.top.equalToSuperview().inset(350)
         }
         
-        subtitle.text = "90 %"
         subtitle.snp.makeConstraints { maker in
             maker.left.equalToSuperview().inset(298)
             maker.top.equalToSuperview().inset(450)

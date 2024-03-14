@@ -14,7 +14,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var dateLabel = UILabel()
     private lazy var imageView = UIImageView()
     private lazy var cityNameLocationLabel = UILabel()
-    private lazy var descriptionLabel = UILabel()
+    private lazy var temperatureLabel = UILabel()
 //    private lazy var humidView = UIImageView()
 //    private lazy var humidLabel = UILabel()
 //    private lazy var windSpeedView = UIImageView()
@@ -53,6 +53,9 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         return windSock
     }()
     
+    let weatherURl = "api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid={API key}"
+    let apiKey = "70b9166dc33204c62ee3c1e299ac88ee"
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         todayInitialize()
@@ -63,6 +66,8 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         view.addSubview(pressure)
         view.addSubview(windSock)
     }
+    
+    func getWeather()
 
     //LocationManager
     private func getLocation() {
@@ -102,7 +107,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         //cityNameLocationLabel
-        cityNameLocationLabel.text = "Cupertino | US"
+        cityNameLocationLabel.text = " | US"
         cityNameLocationLabel.font = UIFont(name: "AmericanTypewriter", size: 30)
         view.addSubview(cityNameLocationLabel)
         cityNameLocationLabel.snp.makeConstraints { maker in
@@ -111,10 +116,10 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         //descriptionLabel
-        descriptionLabel.text = "13.38 °C | Clear"
-        descriptionLabel.font = UIFont(name: "AmericanTypewriter", size: 26)
-        view.addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { maker in
+        temperatureLabel.text = " °C"
+        temperatureLabel.font = UIFont(name: "AmericanTypewriter", size: 26)
+        view.addSubview(temperatureLabel)
+        temperatureLabel.snp.makeConstraints { maker in
             maker.centerX.equalToSuperview()
             maker.top.equalToSuperview().inset(280)
         }

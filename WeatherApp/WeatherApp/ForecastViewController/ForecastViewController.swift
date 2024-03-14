@@ -44,7 +44,6 @@ class ForecastViewController: UIViewController {
             maker.centerX.equalToSuperview()
             maker.top.equalToSuperview().inset(50)
         }
-        
     }
     
     private func configureTableView() {
@@ -61,7 +60,6 @@ class ForecastViewController: UIViewController {
             make.top.equalToSuperview().inset(100)
             make.bottom.equalToSuperview().inset(80)
         }
-        
     }
     
     struct weakDay {
@@ -70,7 +68,6 @@ class ForecastViewController: UIViewController {
         var temperature: String
         var summary: String
     }
-    
 }
 
 //MARK: -

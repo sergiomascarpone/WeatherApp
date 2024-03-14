@@ -18,6 +18,7 @@ class WeatherWindView: UIView {
     
     private lazy var subtitle: UILabel = {
         let subtitle = UILabel()
+        subtitle.text = " km/h"
         subtitle.font = UIFont(name: "Times New Roman", size: 20)
         subtitle.textColor = .black
         subtitle.textAlignment = .center
@@ -45,7 +46,6 @@ class WeatherWindView: UIView {
             maker.top.equalToSuperview().inset(350)
         }
         
-        subtitle.text = "10.45 km/h"
         subtitle.snp.makeConstraints { maker in
             maker.centerX.equalToSuperview().offset(200)
             maker.top.equalToSuperview().inset(450)

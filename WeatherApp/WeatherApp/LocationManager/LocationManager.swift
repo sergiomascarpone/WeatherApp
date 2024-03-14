@@ -7,9 +7,11 @@
 
 import CoreLocation
 import Foundation
+import Alamofire
+import UIKit
 
 final class LocationManager: NSObject, CLLocationManagerDelegate {
-    
+   
     private let manager = CLLocationManager()
     
     static let shared = LocationManager()
