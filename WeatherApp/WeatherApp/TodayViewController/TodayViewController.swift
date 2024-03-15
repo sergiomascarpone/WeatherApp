@@ -5,9 +5,11 @@
 //  Created by Sergio Mascarpone on 21.02.24.
 //
 
+import Foundation
 import SnapKit
 import UIKit
 import CoreLocation
+import Alamofire
 
 class TodayViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -15,16 +17,16 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var imageView = UIImageView()
     private lazy var cityNameLocationLabel = UILabel()
     private lazy var temperatureLabel = UILabel()
-//    private lazy var humidView = UIImageView()
-//    private lazy var humidLabel = UILabel()
-//    private lazy var windSpeedView = UIImageView()
-//    private lazy var windSpeedLabel = UILabel()
-//    private lazy var thermoView = UIImageView()
-//    private lazy var thermoLabel = UILabel()
-//    private lazy var pressureView = UIImageView()
-//    private lazy var pressureLabel = UILabel()
-//    private lazy var windSockView = UIImageView()
-//    private lazy var windSockLabel = UILabel()
+    //    private lazy var humidView = UIImageView()
+    //    private lazy var humidLabel = UILabel()
+    //    private lazy var windSpeedView = UIImageView()
+    //    private lazy var windSpeedLabel = UILabel()
+    //    private lazy var thermoView = UIImageView()
+    //    private lazy var thermoLabel = UILabel()
+    //    private lazy var pressureView = UIImageView()
+    //    private lazy var pressureLabel = UILabel()
+    //    private lazy var windSockView = UIImageView()
+    //    private lazy var windSockLabel = UILabel()
     private lazy var shareButton = UIButton()
     
     //Views
@@ -53,9 +55,8 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         return windSock
     }()
     
-    let weatherURl = "api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid={API key}"
     let apiKey = "70b9166dc33204c62ee3c1e299ac88ee"
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         todayInitialize()
@@ -65,17 +66,66 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         view.addSubview(humidity)
         view.addSubview(pressure)
         view.addSubview(windSock)
+        
+        let url = "https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=\(apiKey)&units=metric"
+        
+        AF.request(url).responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                if let json = value as? [String: Any],
+                   let name = json["name"] as? String,
+                   let main = json["main"] as? [String: Any],
+                   let temp = main["temp"] as? Double,
+                   let humidity = main["humidity"] as? Int,
+                   let wind = json["wind"] as? [String: Any],
+                   let windSpeed = wind["speed"] as? Double,
+                   let weather = json["weather"] as? [[String: Any]],
+                   let rain = weather.first?["description"] as? String {
+                    
+                    // Обновление текста в UILabel
+                    DispatchQueue.main.async {
+                        self.cityNameLocationLabel.text = "\(name)"
+                        self.temperatureLabel.text = "\(temp) °C | \(rain)"
+                        //
+                        // Изменение изображения в зависимости от погоды
+                        // let imageName =
+                        // self.getImageNameForWeatherDescription(description)
+                        // self.imageView.image = UIImage(named: imageName)
+                        //self.humidity.text = "\(humidity)%"
+                        //self.wind.text = "\(windSpeed) м/с"
+                        //self.precipitation.text = "Вероятность осадков: \(rain)"
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
-    func getWeather()
-
+    // Изменение изображения в зависимости от погоды
+    func getImageNameForWeatherDescription(_ description: String) -> String {
+        switch description {
+        case "clear sky":
+            return "sun"
+        case "cloudy day":
+            return "cloudyDay"
+        case "scattered clouds":
+            return "scattered_clouds"
+        case "light rain":
+            return "light_rain"
+            // добавить другие кейсы для других типов погоды
+        default:
+            return "unknown_weather"
+        }
+    }
+    
     //LocationManager
     private func getLocation() {
         LocationManager.shared.getCorrentLocation { location in
             print(String(describing:location))
         }
     }
-        
+    
     //MARK: - SetUpViews
     private func todayInitialize() {
         view.backgroundColor = .systemBackground
@@ -107,7 +157,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         //cityNameLocationLabel
-        cityNameLocationLabel.text = " | US"
+        cityNameLocationLabel.text = " "
         cityNameLocationLabel.font = UIFont(name: "AmericanTypewriter", size: 30)
         view.addSubview(cityNameLocationLabel)
         cityNameLocationLabel.snp.makeConstraints { maker in
@@ -116,7 +166,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         //descriptionLabel
-        temperatureLabel.text = " °C"
+        temperatureLabel.text = ""
         temperatureLabel.font = UIFont(name: "AmericanTypewriter", size: 26)
         view.addSubview(temperatureLabel)
         temperatureLabel.snp.makeConstraints { maker in
@@ -124,102 +174,102 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
             maker.top.equalToSuperview().inset(280)
         }
         
-//        //humidView
-//        humidView.image = UIImage(named: "humid")
-//        view.addSubview(humidView)
-//        humidView.snp.makeConstraints { maker in
-//            maker.height.equalTo(80)
-//            maker.width.equalTo(80)
-//            maker.left.equalToSuperview().inset(40)
-//            maker.top.equalToSuperview().inset(350)
-//        }
-//        
-//        //humidLabel
-//        humidLabel.text = "0 mm"
-//        humidLabel.font = UIFont(name: "Times New Roman", size: 22)
-//        view.addSubview(humidLabel)
-//        humidLabel.snp.makeConstraints { maker in
-////            maker.top.equalTo(humidView.snp.bottom).offset(0)
-//            maker.left.equalToSuperview().inset(55)
-//            maker.top.equalToSuperview().inset(440)
-//        }
-
-//        //windSpeedView
-//        windSpeedView.image = UIImage(named: "windySpeed")
-//        view.addSubview(windSpeedView)
-//        windSpeedView.snp.makeConstraints { maker in
-//            maker.height.equalTo(80)
-//            maker.width.equalTo(80)
-//            maker.centerX.equalToSuperview()
-//            maker.top.equalToSuperview().inset(350)
-//        }
-//        
-//        //windSpeedLabel
-//        windSpeedLabel.text = "0.45 km/h"
-//        windSpeedLabel.font = UIFont(name: "Times New Roman", size: 22)
-//        view.addSubview(windSpeedLabel)
-//        windSpeedLabel.snp.makeConstraints { maker in
-//            maker.centerX.equalToSuperview()
-//            maker.top.equalToSuperview().inset(440)
-//        }
+        //        //humidView
+        //        humidView.image = UIImage(named: "humid")
+        //        view.addSubview(humidView)
+        //        humidView.snp.makeConstraints { maker in
+        //            maker.height.equalTo(80)
+        //            maker.width.equalTo(80)
+        //            maker.left.equalToSuperview().inset(40)
+        //            maker.top.equalToSuperview().inset(350)
+        //        }
+        //
+        //        //humidLabel
+        //        humidLabel.text = "0 mm"
+        //        humidLabel.font = UIFont(name: "Times New Roman", size: 22)
+        //        view.addSubview(humidLabel)
+        //        humidLabel.snp.makeConstraints { maker in
+        ////            maker.top.equalTo(humidView.snp.bottom).offset(0)
+        //            maker.left.equalToSuperview().inset(55)
+        //            maker.top.equalToSuperview().inset(440)
+        //        }
         
-//        //thermoView
-//        thermoView.image = UIImage(named: "temperature")
-//        view.addSubview(thermoView)
-//        thermoView.snp.makeConstraints { maker in
-//            maker.height.equalTo(80)
-//            maker.width.equalTo(80)
-//            maker.right.equalToSuperview().inset(40)
-//            maker.top.equalToSuperview().inset(350)
-//        }
+        //        //windSpeedView
+        //        windSpeedView.image = UIImage(named: "windySpeed")
+        //        view.addSubview(windSpeedView)
+        //        windSpeedView.snp.makeConstraints { maker in
+        //            maker.height.equalTo(80)
+        //            maker.width.equalTo(80)
+        //            maker.centerX.equalToSuperview()
+        //            maker.top.equalToSuperview().inset(350)
+        //        }
+        //
+        //        //windSpeedLabel
+        //        windSpeedLabel.text = "0.45 km/h"
+        //        windSpeedLabel.font = UIFont(name: "Times New Roman", size: 22)
+        //        view.addSubview(windSpeedLabel)
+        //        windSpeedLabel.snp.makeConstraints { maker in
+        //            maker.centerX.equalToSuperview()
+        //            maker.top.equalToSuperview().inset(440)
+        //        }
         
-//        //thermoLabel
-//        thermoLabel.text = "69 %"
-//        thermoLabel.font = UIFont(name: "Times New Roman", size: 22)
-//        view.addSubview(thermoLabel)
-//        thermoLabel.snp.makeConstraints { maker in
-//            maker.right.equalToSuperview().inset(55)
-//            maker.top.equalToSuperview().inset(440)
-//        }
+        //        //thermoView
+        //        thermoView.image = UIImage(named: "temperature")
+        //        view.addSubview(thermoView)
+        //        thermoView.snp.makeConstraints { maker in
+        //            maker.height.equalTo(80)
+        //            maker.width.equalTo(80)
+        //            maker.right.equalToSuperview().inset(40)
+        //            maker.top.equalToSuperview().inset(350)
+        //        }
         
-//        //pressureView
-//        pressureView.image = UIImage(named: "pressure")
-//        view.addSubview(pressureView)
-//        pressureView.snp.makeConstraints { maker in
-//            maker.height.equalTo(70)
-//            maker.width.equalTo(70)
-//            maker.left.equalToSuperview().inset(80)
-//            maker.top.equalToSuperview().inset(480)
-//        }
-//        
-//        //pressureLabel
-//        pressureLabel.text = "1021 hPa"
-//        pressureLabel.font = UIFont(name: "Times New Roman", size: 22)
-//        view.addSubview(pressureLabel)
-//        pressureLabel.snp.makeConstraints { maker in
-//            maker.left.equalToSuperview().inset(75)
-//            maker.top.equalToSuperview().inset(560)
-//        }
+        //        //thermoLabel
+        //        thermoLabel.text = "69 %"
+        //        thermoLabel.font = UIFont(name: "Times New Roman", size: 22)
+        //        view.addSubview(thermoLabel)
+        //        thermoLabel.snp.makeConstraints { maker in
+        //            maker.right.equalToSuperview().inset(55)
+        //            maker.top.equalToSuperview().inset(440)
+        //        }
         
-//        //windSockView
-//        windSockView.image = UIImage(named: "windSock")
-//        view.addSubview(windSockView)
-//        windSockView.snp.makeConstraints { maker in
-//            maker.height.equalTo(70)
-//            maker.width.equalTo(70)
-//            maker.right.equalToSuperview().inset(80)
-//            maker.top.equalToSuperview().inset(480)
-//        }
-//        
-//        //windSockLabel
-//        windSockLabel.text = "S"
-//        windSockLabel.font = UIFont(name: "Times New Roman", size: 22)
-//        view.addSubview(windSockLabel)
-//        windSockLabel.snp.makeConstraints { maker in
-//            maker.right.equalToSuperview().inset(75)
-//            maker.top.equalToSuperview().inset(560)
-//        }
-
+        //        //pressureView
+        //        pressureView.image = UIImage(named: "pressure")
+        //        view.addSubview(pressureView)
+        //        pressureView.snp.makeConstraints { maker in
+        //            maker.height.equalTo(70)
+        //            maker.width.equalTo(70)
+        //            maker.left.equalToSuperview().inset(80)
+        //            maker.top.equalToSuperview().inset(480)
+        //        }
+        //
+        //        //pressureLabel
+        //        pressureLabel.text = "1021 hPa"
+        //        pressureLabel.font = UIFont(name: "Times New Roman", size: 22)
+        //        view.addSubview(pressureLabel)
+        //        pressureLabel.snp.makeConstraints { maker in
+        //            maker.left.equalToSuperview().inset(75)
+        //            maker.top.equalToSuperview().inset(560)
+        //        }
+        
+        //        //windSockView
+        //        windSockView.image = UIImage(named: "windSock")
+        //        view.addSubview(windSockView)
+        //        windSockView.snp.makeConstraints { maker in
+        //            maker.height.equalTo(70)
+        //            maker.width.equalTo(70)
+        //            maker.right.equalToSuperview().inset(80)
+        //            maker.top.equalToSuperview().inset(480)
+        //        }
+        //
+        //        //windSockLabel
+        //        windSockLabel.text = "S"
+        //        windSockLabel.font = UIFont(name: "Times New Roman", size: 22)
+        //        view.addSubview(windSockLabel)
+        //        windSockLabel.snp.makeConstraints { maker in
+        //            maker.right.equalToSuperview().inset(75)
+        //            maker.top.equalToSuperview().inset(560)
+        //        }
+        
         //shareButton
         shareButton.backgroundColor = .green
         shareButton.setTitle("Share Weather", for: .normal)

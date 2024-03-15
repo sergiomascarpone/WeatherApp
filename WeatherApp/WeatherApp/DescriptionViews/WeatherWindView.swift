@@ -18,7 +18,7 @@ class WeatherWindView: UIView {
     
     private lazy var subtitle: UILabel = {
         let subtitle = UILabel()
-        subtitle.text = " km/h"
+        subtitle.text = " "
         subtitle.font = UIFont(name: "Times New Roman", size: 20)
         subtitle.textColor = .black
         subtitle.textAlignment = .center
