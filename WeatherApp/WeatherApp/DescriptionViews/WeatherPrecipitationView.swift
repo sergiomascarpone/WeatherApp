@@ -9,15 +9,15 @@ import SnapKit
 import UIKit
 
 class WeatherPrecipitationView: UIView {
-    private let state: WeatherCase
+    var state: WeatherCase
     
-    private lazy var image: UIImageView = {
+    var image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         return image
     }()
     
-    private lazy var subtitle: UILabel = {
+    var subtitle: UILabel = {
         let subtitle = UILabel()
         subtitle.font = UIFont(name: "Times New Roman", size: 20)
         subtitle.textColor = .black
@@ -35,7 +35,7 @@ class WeatherPrecipitationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
+    func setupUI() {
         self.addSubview(image)
         self.addSubview(subtitle)
         
@@ -54,7 +54,7 @@ class WeatherPrecipitationView: UIView {
         image.image = state.image
     }
     
-    private func setupText(_ text: String) {
+    func setupText(_ text: String) {
         self.subtitle.text = text
     }
     

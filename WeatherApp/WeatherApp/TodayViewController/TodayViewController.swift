@@ -83,12 +83,17 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         // Вывод данных о погоде на экран
         print("\(weatherData.name)")
         print("\(weatherData.main.temp)°C")
-        print("Влажность: \(weatherData.main.humidity)%")
+        print("Влажность: \(weatherData.main.humidity) %")
         print("Скорость ветра: \(weatherData.wind.speed) м/с")
         print("Вероятность осадков: \(weatherData.weather.first?.description ?? "Unknown")")
+        
         self.cityNameLocationLabel.text = "\(weatherData.name)"
         self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
-        self.precipitation.text = "\(weatherData.main.humidity)%"
+        self.precipitation.subtitle.text = "\(weatherData.main.humidity) mm"
+        self.wind.subtitle.text = "\(weatherData.wind.speed) km/h"
+        self.humidity.subtitle.text = "\(weatherData.main.humidity) %"
+        self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
+        self.windSock.subtitle.text = "\(weatherData.wind.deg) "
     }
     
     //        let url = "https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=\(apiKey)&units=metric"

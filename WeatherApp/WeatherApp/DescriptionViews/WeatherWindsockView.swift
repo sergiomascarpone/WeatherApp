@@ -8,17 +8,18 @@ import SnapKit
 import UIKit
 
 class WeatherWindsockView: UIView {
-    private let state: WeatherCase
+    var state: WeatherCase
     
-    private lazy var image: UIImageView = {
+    var image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         return image
     }()
     
-    private lazy var subtitle: UILabel = {
+    var subtitle: UILabel = {
         let subtitle = UILabel()
         subtitle.font = UIFont(name: "Times New Roman", size: 20)
+        subtitle.text = ""
         subtitle.textColor = .black
         subtitle.textAlignment = .center
         return subtitle
@@ -34,7 +35,7 @@ class WeatherWindsockView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
+    func setupUI() {
         self.addSubview(image)
         self.addSubview(subtitle)
         
@@ -45,7 +46,6 @@ class WeatherWindsockView: UIView {
             maker.top.equalToSuperview().inset(480)
         }
         
-        subtitle.text = "S"
         subtitle.snp.makeConstraints { maker in
             maker.left.equalToSuperview().inset(250)
             maker.top.equalToSuperview().inset(580)
@@ -53,7 +53,7 @@ class WeatherWindsockView: UIView {
         image.image = state.image
     }
     
-    private func setupText(_ text: String) {
+    func setupText(_ text: String) {
         self.subtitle.text = text
     }
 }
