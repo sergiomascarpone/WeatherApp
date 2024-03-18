@@ -55,7 +55,9 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         return windSock
     }()
     
-    let apiKey = "70b9166dc33204c62ee3c1e299ac88ee"
+    //    let apiKey = "70b9166dc33204c62ee3c1e299ac88ee"
+    
+    let weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,57 +69,76 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         view.addSubview(pressure)
         view.addSubview(windSock)
         
-        let url = "https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=\(apiKey)&units=metric"
         
-        AF.request(url).responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                if let json = value as? [String: Any],
-                   let name = json["name"] as? String,
-                   let main = json["main"] as? [String: Any],
-                   let temp = main["temp"] as? Double,
-                   let humidity = main["humidity"] as? Int,
-                   let wind = json["wind"] as? [String: Any],
-                   let windSpeed = wind["speed"] as? Double,
-                   let weather = json["weather"] as? [[String: Any]],
-                   let rain = weather.first?["description"] as? String {
-                    
-                    // Обновление текста в UILabel
-                    DispatchQueue.main.async {
-                        self.cityNameLocationLabel.text = "\(name)"
-                        self.temperatureLabel.text = "\(temp) °C | \(rain)"
-                        //
-                        // Изменение изображения в зависимости от погоды
-                        // let imageName =
-                        // self.getImageNameForWeatherDescription(description)
-                        // self.imageView.image = UIImage(named: imageName)
-                        //self.humidity.text = "\(humidity)%"
-                        //self.wind.text = "\(windSpeed) м/с"
-                        //self.precipitation.text = "Вероятность осадков: \(rain)"
-                    }
-                }
-            case .failure(let error):
-                print(error)
+        weatherManager.fetchWeatherData { [weak self] weatherData in
+            guard let weatherData = weatherData else { return }
+            
+            DispatchQueue.main.async {
+                self?.displayWeatherData(weatherData)
             }
         }
     }
     
-    // Изменение изображения в зависимости от погоды
-    func getImageNameForWeatherDescription(_ description: String) -> String {
-        switch description {
-        case "clear sky":
-            return "sun"
-        case "cloudy day":
-            return "cloudyDay"
-        case "scattered clouds":
-            return "scattered_clouds"
-        case "light rain":
-            return "light_rain"
-            // добавить другие кейсы для других типов погоды
-        default:
-            return "unknown_weather"
-        }
+    func displayWeatherData(_ weatherData: WeatherData) {
+        // Вывод данных о погоде на экран
+        print("\(weatherData.name)")
+        print("\(weatherData.main.temp)°C")
+        print("Влажность: \(weatherData.main.humidity)%")
+        print("Скорость ветра: \(weatherData.wind.speed) м/с")
+        print("Вероятность осадков: \(weatherData.weather.first?.description ?? "Unknown")")
+        self.cityNameLocationLabel.text = "\(weatherData.name)"
+        self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
+        self.precipitation.text = "\(weatherData.main.humidity)%"
     }
+    
+    //        let url = "https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=\(apiKey)&units=metric"
+    //
+    //        AF.request(url).responseJSON { response in
+    //            switch response.result {
+    //            case .success(let value):
+    //                if let json = value as? [String: Any],
+    //                   let name = json["name"] as? String,
+    //                   let main = json["main"] as? [String: Any],
+    //                   let temp = main["temp"] as? Double,
+    //                   let humidity = main["humidity"] as? Int,
+    //                   let wind = json["wind"] as? [String: Any],
+    //                   let windSpeed = wind["speed"] as? Double,
+    //                   let weather = json["weather"] as? [[String: Any]],
+    //                   let rain = weather.first?["description"] as? String {
+    //
+    //                    // Обновление текста в UILabel
+    //                    DispatchQueue.main.async {
+    //                        self.cityNameLocationLabel.text = "\(name)"
+    //                        self.temperatureLabel.text = "\(temp) °C | \(rain)"
+    //
+    //                        //Изменение изображения в зависимости от погоды
+    ////                         let imageName =
+    ////                         self.getImageNameForWeatherDescription(description)
+    ////                         self.imageView.image = UIImage(named: imageName)
+    //                    }
+    //                }
+    //            case .failure(let error):
+    //                print(error)
+    //            }
+    //        }
+    //    }
+    
+    // Изменение изображения в зависимости от погоды
+    //    func getImageNameForWeatherDescription(_ description: String) -> String {
+    //        switch description {
+    //        case "clear sky":
+    //            return "sun"
+    //        case "cloudy day":
+    //            return "cloudyDay"
+    //        case "scattered clouds":
+    //            return "scattered_clouds"
+    //        case "light rain":
+    //            return "light_rain"
+    //            // добавить другие кейсы для других типов погоды
+    //        default:
+    //            return "unknown_weather"
+    //        }
+    //    }
     
     //LocationManager
     private func getLocation() {
