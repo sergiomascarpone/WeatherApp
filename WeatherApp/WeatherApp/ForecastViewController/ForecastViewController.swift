@@ -9,7 +9,7 @@ import SnapKit
 import UIKit
 
 class ForecastViewController: UIViewController {
-    
+
     private lazy var forecastLabel = UITextField()
     private lazy var tableView = UITableView()
     //    private lazy var reuseIdentifier = "Forecast"
@@ -110,4 +110,5 @@ class CustomCell: UITableViewCell {
         fatalError("Error")
     }
 }
+
 
