@@ -13,11 +13,8 @@ import UIKit
 final class LocationManager: NSObject, CLLocationManagerDelegate {
    
     private let manager = CLLocationManager()
-    
     static let shared = LocationManager()
-    
     private var locationFetchCompletion: ((CLLocation) -> Void)?
-    
     private var location: CLLocation? {
         didSet {
             guard let location = location else {
@@ -30,7 +27,6 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     public func getCorrentLocation(completion: @escaping (CLLocation) -> Void) {
         
         self.locationFetchCompletion = completion
-        
         manager.requestWhenInUseAuthorization()
         manager.delegate = self
         manager.startUpdatingLocation()

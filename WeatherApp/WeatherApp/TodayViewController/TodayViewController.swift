@@ -54,19 +54,18 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         let windSock = WeatherWindsockView(state: .windsock)
         return windSock
     }()
-        
+    
     let weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        todayInitialize()
-        getLocation()
         view.addSubview(precipitation)
         view.addSubview(wind)
         view.addSubview(humidity)
         view.addSubview(pressure)
         view.addSubview(windSock)
-        
+        todayInitialize()
+        getLocation()
         
         weatherManager.fetchWeatherData { [weak self] weatherData in
             guard let weatherData = weatherData else { return }
@@ -79,13 +78,13 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     
     // Вывод данных о погоде на экран
     func displayWeatherData(_ weatherData: WeatherData) {
-        print("\(weatherData.name)")
-        print("\(weatherData.main.temp)°C")
-        print("Влажность: \(weatherData.main.humidity) %")
-        print("Скорость ветра: \(weatherData.wind.speed) м/с")
-        print("Вероятность осадков: \(weatherData.weather.first?.description ?? "Unknown")")
+//        print("\(weatherData.name)")
+//        print("\(weatherData.main.temp)°C")
+//        print("Влажность: \(weatherData.main.humidity) %")
+//        print("Скорость ветра: \(weatherData.wind.speed) м/с")
+//        print("Вероятность осадков: \(weatherData.weather.first?.description ?? "Unknown")")
         
-        self.imageView.image = UIImage.cloud
+//        self.imageView.image = UIImage()
         
         self.cityNameLocationLabel.text = "\(weatherData.name)"
         self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
@@ -95,29 +94,30 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
         self.windSock.subtitle.text = "\(weatherData.wind.deg) "
         
-        // Изменение изображения в зависимости от погоды
-//        let imageName =
-//        self.getImageNameForWeatherDescription(description)
-//        self.imageView.image = UIImage(named: imageName)
-   }
-//    
-    func getImageNameForWeatherDescription(_ description: String) -> String {
-        switch description {
-        case "clear sky":
-            return "sun"
-        case "cloudy day":
-            return "cloudyDay"
-        case "scattered clouds":
-            return "scattered_clouds"
-        case "light rain":
-            return "light_rain"
-        case "overcast clouds":
-            return "cloud"
-            // добавить другие кейсы для других типов погоды
-        default:
-            return "unknown_weather"
-        }
+        
+        let imageName = self.getImageNameForWeatherDescription(description)
+        self.imageView.image = UIImage(named: imageName)
+        
     }
+    
+    // Изменение изображения в зависимости от погоды
+    func getImageNameForWeatherDescription(_ description: String) -> String {
+            switch description {
+            case "clear sky":
+                return "sun"
+            case "cloudy day":
+                return "cloudyDay"
+            case "scattered clouds":
+                return "scattered_clouds"
+            case "light rain":
+                return "light_rain"
+            case "overcast clouds":
+                return "cloud"
+                // добавить другие кейсы для других типов погоды
+            default:
+                return "unknown_weather"
+            }
+        }
     
     //LocationManager
     private func getLocation() {

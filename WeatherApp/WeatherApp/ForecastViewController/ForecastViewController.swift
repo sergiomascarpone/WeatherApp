@@ -110,5 +110,38 @@ class CustomCell: UITableViewCell {
         fatalError("Error")
     }
 }
-
-
+//
+//let weatherManager = WeatherManager()
+//   var weatherData: [WeatherData] = []
+//   
+//   override func viewDidLoad() {
+//       super.viewDidLoad()
+//       
+//       weatherManager.fetchWeatherData { [weak self] weatherData in
+//           guard let weatherData = weatherData else { return }
+//           
+//           self?.weatherData = weatherData
+//           DispatchQueue.main.async {
+//               self?.tableView.reloadData()
+//           }
+//       }
+//   }
+//   
+//   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//       return weatherData.count
+//   }
+//   
+//   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//       let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath)
+//       let data = weatherData[indexPath.row]
+//       
+//       let dateTime = NSDate(timeIntervalSince1970: data.dt)
+//       let dateFormatter = DateFormatter()
+//       dateFormatter.dateFormat = "HH:mm"
+//       cell.textLabel?.text = dateFormatter.string(from: dateTime as Date)
+//       cell.detailTextLabel?.text = "\(data.main.temp)°C"
+//       
+//       return cell
+//   }
+//
+//
