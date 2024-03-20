@@ -97,12 +97,6 @@ func getImageNameForWeatherDescription(_ description: String) -> String {
     
     // Вывод данных о погоде на экран
     func displayWeatherData(_ weatherData: WeatherData) {
-//        print("\(weatherData.name)")
-//        print("\(weatherData.main.temp)°C")
-//        print("Влажность: \(weatherData.main.humidity) %")
-//        print("Скорость ветра: \(weatherData.wind.speed) м/с")
-//        print("Вероятность осадков: \(weatherData.weather.first?.description ?? "Unknown")")
-        
         
 //        self.imageView.image = UIImage()
         self.cityNameLocationLabel.text = "\(weatherData.name)"
@@ -113,7 +107,8 @@ func getImageNameForWeatherDescription(_ description: String) -> String {
         self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
         self.windSock.subtitle.text = "\(weatherData.wind.deg)"
         
-        self.getImageNameForWeatherDescription(description)
+        self.imageView.image = UIImage(named: description)
+//        self.getImageNameForWeatherDescription(description)
     }
     
     //LocationManager
