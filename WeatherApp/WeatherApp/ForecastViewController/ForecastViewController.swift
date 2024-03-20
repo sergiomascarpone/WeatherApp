@@ -26,7 +26,7 @@ class ForecastViewController: UIViewController {
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
     ]
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -110,6 +110,8 @@ class CustomCell: UITableViewCell {
         fatalError("Error")
     }
 }
+
+
 //
 //let weatherManager = WeatherManager()
 //   var weatherData: [WeatherData] = []

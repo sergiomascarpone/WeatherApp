@@ -47,6 +47,10 @@ struct WeatherData: Decodable {
         let description: String
     }
     
+    struct WeatherResponse: Decodable {
+        let list: [WeatherData]
+    }
+    
 //    struct Pop: Decodable {
 //        let pop: Double
 //    }
