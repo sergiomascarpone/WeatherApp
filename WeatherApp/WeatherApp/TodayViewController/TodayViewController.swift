@@ -76,7 +76,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    // Изменение изображения в зависимости от погоды
+    // Изменение изображения в зависимости от погоды - пока не работает(
 func getImageNameForWeatherDescription(_ description: String) -> String {
     switch description {
         case "clear sky":
