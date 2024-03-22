@@ -7,7 +7,7 @@
 
 import SnapKit
 import UIKit
-
+// разобраться с таблицей...
 class ForecastViewController: UIViewController {
 
     private lazy var forecastLabel = UITextField()
