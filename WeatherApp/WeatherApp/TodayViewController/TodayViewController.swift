@@ -98,7 +98,8 @@ func getImageNameForWeatherDescription(_ description: String) -> String {
     // Вывод данных о погоде на экран
     func displayWeatherData(_ weatherData: WeatherData) {
         
-//        self.imageView.image = UIImage()
+        self.imageView.image = UIImage(resource: .cloudyDay)
+        
         self.cityNameLocationLabel.text = "\(weatherData.name)"
         self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
         self.precipitation.subtitle.text = "\(weatherData.main.humidity) mm"
@@ -107,7 +108,7 @@ func getImageNameForWeatherDescription(_ description: String) -> String {
         self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
         self.windSock.subtitle.text = "\(weatherData.wind.deg)"
         
-        self.imageView.image = UIImage(named: description)
+//        self.imageView.image = UIImage(named: description)
 //        self.getImageNameForWeatherDescription(description)
     }
     

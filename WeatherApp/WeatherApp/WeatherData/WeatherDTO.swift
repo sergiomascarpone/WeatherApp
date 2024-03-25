@@ -23,7 +23,6 @@ class WeatherManager {
             }
         }
     }
-    
 }
 
 struct WeatherData: Decodable {
