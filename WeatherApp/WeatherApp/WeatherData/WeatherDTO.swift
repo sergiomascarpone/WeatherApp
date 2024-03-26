@@ -50,7 +50,7 @@ struct WeatherData: Decodable {
         let list: [WeatherData]
     }
     
-//    struct Pop: Decodable {
-//        let pop: Double
-//    }
+    //    struct Pop: Decodable {
+    //        let pop: Double
+    //    }
 }

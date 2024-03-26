@@ -77,8 +77,8 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // Изменение изображения в зависимости от погоды - пока не работает(
-func getImageNameForWeatherDescription(_ description: String) -> String {
-    switch description {
+    func getImageNameForWeatherDescription(_ weather: String) -> String {
+        switch description {
         case "clear sky":
             return "sun"
         case "cloudy day":
@@ -98,8 +98,6 @@ func getImageNameForWeatherDescription(_ description: String) -> String {
     // Вывод данных о погоде на экран
     func displayWeatherData(_ weatherData: WeatherData) {
         
-        self.imageView.image = UIImage(resource: .cloudyDay)
-        
         self.cityNameLocationLabel.text = "\(weatherData.name)"
         self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
         self.precipitation.subtitle.text = "\(weatherData.main.humidity) mm"
@@ -108,14 +106,13 @@ func getImageNameForWeatherDescription(_ description: String) -> String {
         self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
         self.windSock.subtitle.text = "\(weatherData.wind.deg)"
         
-//        self.imageView.image = UIImage(named: description)
-//        self.getImageNameForWeatherDescription(description)
+        self.imageView.image = UIImage(named: "sun")
     }
     
     //LocationManager
     private func getLocation() {
         LocationManager.shared.getCorrentLocation { location in
-            print(String(describing:location))
+            print(String(describing: location))
         }
     }
     
@@ -140,7 +137,7 @@ func getImageNameForWeatherDescription(_ description: String) -> String {
         }
         
         //imageView
-        imageView.image = UIImage(named: "sun")
+        imageView.image = UIImage(named: " ")
         view.addSubview(imageView)
         imageView.snp.makeConstraints { maker in
             maker.height.equalTo(100)
