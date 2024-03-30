@@ -77,22 +77,22 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // Изменение изображения в зависимости от погоды - пока не работает(
-    func getImageNameForWeatherDescription(_ weather: String) -> String {
-        switch description {
-        case "clear sky":
-            return "sun"
-        case "cloudy day":
-            return "cloudyDay"
-        case "scattered clouds":
-            return "scattered_clouds"
-        case "light rain":
-            return "light_rain"
-        case "overcast clouds":
-            return "cloud"
-        default:
-            return "unknown_weather"
-        }
-    }
+//    func getImageNameForWeatherDescription(_ description: String) -> String {
+//        switch description {
+//        case "clear sky":
+//            return "sun"
+//        case "cloudy day":
+//            return "cloudyDay"
+//        case "scattered clouds":
+//            return "scattered_clouds"
+//        case "light rain":
+//            return "light_rain"
+//        case "overcast clouds":
+//            return "cloud"
+//        default:
+//            return "unknown_weather"
+//        }
+//    }
     
     
     // Вывод данных о погоде на экран
@@ -137,7 +137,7 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         //imageView
-        imageView.image = UIImage(named: " ")
+        imageView.image = UIImage()
         view.addSubview(imageView)
         imageView.snp.makeConstraints { maker in
             maker.height.equalTo(100)
