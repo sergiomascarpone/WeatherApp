@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+protocol TodayWeatherPresenterProtocol {
+    var todayWeatherResultDelegate: TodayWeatherResultDelegate? { get set }
+    func requestLocationIfNeeded()
+    func defineWindDirection(degree: Int) -> String
+}

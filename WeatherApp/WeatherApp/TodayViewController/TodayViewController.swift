@@ -11,9 +11,9 @@ import UIKit
 import CoreLocation
 import Alamofire
 
-class TodayViewController: UIViewController, CLLocationManagerDelegate {
+class TodayViewController: UIViewController {
     
-    private lazy var dateLabel = UILabel()
+//    private lazy var dateLabel = UILabel()
     private lazy var imageView = UIImageView()
     private lazy var cityNameLocationLabel = UILabel()
     private lazy var temperatureLabel = UILabel()
@@ -55,7 +55,18 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         return windSock
     }()
     
-    let weatherManager = WeatherManager()
+//    let weatherManager = WeatherManager()
+    private var presenter: TodayWeatherPresenterProtocol
+    
+    init(presenter: TodayWeatherPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+        self.presenter.todayWeatherResultDelegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,15 +76,15 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         view.addSubview(pressure)
         view.addSubview(windSock)
         todayInitialize()
-        getLocation()
+//        getLocation()
         
-        weatherManager.fetchWeatherData { [weak self] weatherData in
-            guard let weatherData = weatherData else { return }
-            
-            DispatchQueue.main.async {
-                self?.displayWeatherData(weatherData)
-            }
-        }
+//        weatherManager.fetchWeatherData { [weak self] weatherData in
+//            guard let weatherData = weatherData else { return }
+//            
+//            DispatchQueue.main.async {
+//                self?.displayWeatherData(weatherData)
+//            }
+//        }
     }
     
     // Изменение изображения в зависимости от погоды - пока не работает(
@@ -94,6 +105,10 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
 //        }
 //    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter.requestLocationIfNeeded()
+    }
     
     // Вывод данных о погоде на экран
     func displayWeatherData(_ weatherData: WeatherData) {
@@ -109,32 +124,32 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         self.imageView.image = UIImage(named: "sun")
     }
     
-    //LocationManager
-    private func getLocation() {
-        LocationManager.shared.getCorrentLocation { location in
-            print(String(describing: location))
-        }
-    }
+//    //LocationManager
+//    private func getLocation() {
+//        LocationManager.shared.getCorrentLocation { location in
+//            print(String(describing: location))
+//        }
+//    }
     
     //MARK: - SetUpViews
     private func todayInitialize() {
         view.backgroundColor = .systemBackground
         
-        //dateLabel
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.locale = Locale(identifier: "en_US")
-        
-        let date = Date()
-        
-        dateLabel.text = (dateFormatter.string(from: date))
-        dateLabel.font = UIFont.systemFont(ofSize: 24)
-        view.addSubview(dateLabel)
-        dateLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(60)
-        }
+//        //dateLabel
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateStyle = .medium
+//        dateFormatter.timeStyle = .none
+//        dateFormatter.locale = Locale(identifier: "en_US")
+//        
+//        let date = Date()
+//        
+//        dateLabel.text = (dateFormatter.string(from: date))
+//        dateLabel.font = UIFont.systemFont(ofSize: 24)
+//        view.addSubview(dateLabel)
+//        dateLabel.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.top.equalToSuperview().inset(60)
+//        }
         
         //imageView
         imageView.image = UIImage()
@@ -275,9 +290,24 @@ class TodayViewController: UIViewController, CLLocationManagerDelegate {
         shareButton.addTarget(self, action: #selector(buttonShareTapped), for: .touchUpInside)
     }
     
+    func updateInfo(_ weatherData: ForecastDTO?) {
+        debugPrint(weatherData)
+    }
+    
+    //MARK: Для открытия "поделиться" используется UIActivityViewController
     @objc func buttonShareTapped(_ sender: UIButton) {
-        let url = URL(string: "https://www.apple.com")!
-        UIApplication.shared.open(url, options: [:])
+        let sharingViewController = UIActivityViewController(activityItems: ["weatherAsText"], applicationActivities: [])
+        self.present(sharingViewController, animated: true)
     }
 }
 
+
+extension TodayViewController: TodayWeatherResultDelegate {
+    func toggleAlert(message: String) {
+        debugPrint(message) //Тут надо показать адерт, что не так
+    }
+    
+    func updateWeatherData(weatherModel: ForecastDTO?) {
+        self.updateInfo(weatherModel)
+    }
+}

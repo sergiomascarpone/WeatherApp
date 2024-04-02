@@ -10,5 +10,6 @@ target 'WeatherApp' do
 pod 'SnapKit'
 pod 'SwiftGen'
 pod 'Alamofire'
+pod 'SwiftyJSON' , ' ~> 4.0 '
 
 end
