@@ -17,6 +17,8 @@
 		1B30CF182B90A2DB000DBFC8 /* WeatherPrecipitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30CF172B90A2DB000DBFC8 /* WeatherPrecipitationView.swift */; };
 		1B30CF222B90C317000DBFC8 /* WeatherCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30CF212B90C317000DBFC8 /* WeatherCase.swift */; };
 		1B30CF242B90D121000DBFC8 /* WeatherViewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30CF232B90D121000DBFC8 /* WeatherViewInfo.swift */; };
+		1B3268052BBD778300E567ED /* TodayWeatherInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3268042BBD778300E567ED /* TodayWeatherInfo.xib */; };
+		1B3268062BBD778300E567ED /* TodayWeatherInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3268032BBD778300E567ED /* TodayWeatherInfo.swift */; };
 		1B4FA0432B9F2C2C00885AF5 /* WeatherWindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FA0422B9F2C2C00885AF5 /* WeatherWindView.swift */; };
 		1B4FA0452B9F2C7100885AF5 /* WeatherHumidityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FA0442B9F2C7100885AF5 /* WeatherHumidityView.swift */; };
 		1B4FA0472B9F2CF900885AF5 /* WeatherPressureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FA0462B9F2CF900885AF5 /* WeatherPressureView.swift */; };
@@ -55,6 +57,8 @@
 		1B30CF172B90A2DB000DBFC8 /* WeatherPrecipitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherPrecipitationView.swift; sourceTree = "<group>"; };
 		1B30CF212B90C317000DBFC8 /* WeatherCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCase.swift; sourceTree = "<group>"; };
 		1B30CF232B90D121000DBFC8 /* WeatherViewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewInfo.swift; sourceTree = "<group>"; };
+		1B3268032BBD778300E567ED /* TodayWeatherInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherInfo.swift; sourceTree = "<group>"; };
+		1B3268042BBD778300E567ED /* TodayWeatherInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWeatherInfo.xib; sourceTree = "<group>"; };
 		1B4FA0422B9F2C2C00885AF5 /* WeatherWindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWindView.swift; sourceTree = "<group>"; };
 		1B4FA0442B9F2C7100885AF5 /* WeatherHumidityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHumidityView.swift; sourceTree = "<group>"; };
 		1B4FA0462B9F2CF900885AF5 /* WeatherPressureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherPressureView.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 		1B66FD602B87537D00D29DFE /* TodayViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1B98806D2BBD82C600837448 /* TodayWeatherInfo */,
 				1B119D752B86262F003277B0 /* TodayViewController.swift */,
 				1B9162992B8E297A00B38B61 /* TodayPresenter.swift */,
 				1B91629B2B8E299300B38B61 /* TodayPresenterProtocol.swift */,
@@ -190,6 +195,15 @@
 				1B9162A52B8E503500B38B61 /* TabBarViewController.swift */,
 			);
 			path = TabBarController;
+			sourceTree = "<group>";
+		};
+		1B98806D2BBD82C600837448 /* TodayWeatherInfo */ = {
+			isa = PBXGroup;
+			children = (
+				1B3268032BBD778300E567ED /* TodayWeatherInfo.swift */,
+				1B3268042BBD778300E567ED /* TodayWeatherInfo.xib */,
+			);
+			path = TodayWeatherInfo;
 			sourceTree = "<group>";
 		};
 		1BD4C7402BBC1CA200902CB4 /* Constants */ = {
@@ -305,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B119D7E2B862630003277B0 /* LaunchScreen.storyboard in Resources */,
+				1B3268052BBD778300E567ED /* TodayWeatherInfo.xib in Resources */,
 				1B119D7B2B862630003277B0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +379,7 @@
 				1B66FD622B8753C200D29DFE /* ForecastViewController.swift in Sources */,
 				1BD4C7462BBC1D6400902CB4 /* WeatherService.swift in Sources */,
 				1B91629C2B8E299300B38B61 /* TodayPresenterProtocol.swift in Sources */,
+				1B3268062BBD778300E567ED /* TodayWeatherInfo.swift in Sources */,
 				1BD4C7562BBC249D00902CB4 /* WeatherDTONew.swift in Sources */,
 				1B9162962B8E294100B38B61 /* ForecastPresenter.swift in Sources */,
 				1B30CF222B90C317000DBFC8 /* WeatherCase.swift in Sources */,
