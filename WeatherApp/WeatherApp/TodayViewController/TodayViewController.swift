@@ -55,7 +55,7 @@ class TodayViewController: UIViewController {
         return windSock
     }()
     
-//    let weatherManager = WeatherManager()
+    let weatherManager = WeatherManager()
     private var presenter: TodayWeatherPresenterProtocol
     
     init(presenter: TodayWeatherPresenterProtocol) {
@@ -78,13 +78,13 @@ class TodayViewController: UIViewController {
         todayInitialize()
 //        getLocation()
         
-//        weatherManager.fetchWeatherData { [weak self] weatherData in
-//            guard let weatherData = weatherData else { return }
-//            
-//            DispatchQueue.main.async {
-//                self?.displayWeatherData(weatherData)
-//            }
-//        }
+        weatherManager.fetchWeatherData { [weak self] weatherData in
+            guard let weatherData = weatherData else { return }
+            
+            DispatchQueue.main.async {
+                self?.displayWeatherData(weatherData)
+            }
+        }
     }
     
     // Изменение изображения в зависимости от погоды - пока не работает(
@@ -120,7 +120,7 @@ class TodayViewController: UIViewController {
         self.humidity.subtitle.text = "\(weatherData.main.humidity) %"
         self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
         self.windSock.subtitle.text = "\(weatherData.wind.deg)"
-        
+
         self.imageView.image = UIImage(named: "sun")
     }
     
