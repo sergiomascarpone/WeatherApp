@@ -301,7 +301,6 @@ class TodayViewController: UIViewController {
     }
 }
 
-
 extension TodayViewController: TodayWeatherResultDelegate {
     func toggleAlert(message: String) {
         debugPrint(message) //Тут надо показать адерт, что не так
