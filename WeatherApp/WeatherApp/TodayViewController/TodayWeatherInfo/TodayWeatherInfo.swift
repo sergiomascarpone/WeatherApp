@@ -23,6 +23,7 @@ class TodayWeatherInfo: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupViews()
     }
     
@@ -42,4 +43,5 @@ class TodayWeatherInfo: UIView {
         let nib = UINib(nibName: "TodayWeatherInfo", bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first! as! UIView
     }
+
 }
