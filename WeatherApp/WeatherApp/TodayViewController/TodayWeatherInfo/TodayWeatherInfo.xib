@@ -11,11 +11,16 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodayWeatherInfo" customModule="WeatherApp" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="i5M-Pr-FkT" id="4vG-qP-Y1W"/>
+                <outlet property="humidLabel" destination="bEp-cJ-jno" id="AHc-5u-IPn"/>
                 <outlet property="humidView" destination="7JJ-WY-qhM" id="oM8-pF-zsf"/>
+                <outlet property="pressureLabel" destination="tO2-yZ-pbA" id="0iA-Tx-BUp"/>
                 <outlet property="pressureView" destination="Pla-jB-ak6" id="L3m-Tl-DO9"/>
+                <outlet property="termometerLabel" destination="Hsc-Td-ZBy" id="qmz-B8-mqB"/>
                 <outlet property="termometerView" destination="Gca-qB-gAQ" id="4Wh-IJ-81Q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="windSockLabel" destination="T8m-Zp-P12" id="Uoj-B6-agD"/>
                 <outlet property="windSockView" destination="l0I-mL-8mE" id="FKx-A9-cuo"/>
+                <outlet property="windyLabel" destination="4Sn-aM-MBT" id="h6b-jc-yez"/>
                 <outlet property="windyView" destination="ZJZ-Mi-Oc5" id="pex-Nh-iQj"/>
             </connections>
         </placeholder>

@@ -194,7 +194,7 @@ class TodayViewController: UIViewController {
         //        humidLabel.font = UIFont(name: "Times New Roman", size: 22)
         //        view.addSubview(humidLabel)
         //        humidLabel.snp.makeConstraints { maker in
-        ////            maker.top.equalTo(humidView.snp.bottom).offset(0)
+        //            maker.top.equalTo(humidView.snp.bottom).offset(0)
         //            maker.left.equalToSuperview().inset(55)
         //            maker.top.equalToSuperview().inset(440)
         //        }

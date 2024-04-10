@@ -8,6 +8,19 @@
 import UIKit
 
 class TodayWeatherInfo: UIView {
+    
+    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var humidView: UIStackView!
+    @IBOutlet weak var humidLabel: UILabel!
+    @IBOutlet weak var windyView: UIStackView!
+    @IBOutlet weak var windyLabel: UILabel!
+    @IBOutlet weak var termometerView: UIStackView!
+    @IBOutlet weak var termometerLabel: UILabel!
+    @IBOutlet weak var pressureView: UIStackView!
+    @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var windSockView: UIStackView!
+    @IBOutlet weak var windSockLabel: UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -29,11 +42,4 @@ class TodayWeatherInfo: UIView {
         let nib = UINib(nibName: "TodayWeatherInfo", bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first! as! UIView
     }
-//    @IBOutlet var contentView: UIView!
-//    @IBOutlet weak var humidView: UIStackView!
-//    @IBOutlet weak var windyView: UIStackView!
-//    @IBOutlet weak var termometerView: UIStackView!
-//    @IBOutlet weak var pressureView: UIStackView!
-//    @IBOutlet weak var windSockView: UIStackView!
-
 }
