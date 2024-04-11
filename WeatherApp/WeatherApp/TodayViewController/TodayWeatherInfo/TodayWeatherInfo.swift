@@ -31,16 +31,16 @@ class TodayWeatherInfo: UIView {
        super .init(coder: aDecoder)
     }
     
-    private func setupViews() {
+     func setupViews() {
         let xibView = loadViewFromXib()
         xibView.frame = self.bounds
         xibView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(xibView)
     }
     
-    private func loadViewFromXib() -> UIView {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "TodayWeatherInfo", bundle: bundle)
-        return nib.instantiate(withOwner: self, options: nil).first! as! UIView
-    }
+    func loadViewFromXib() -> UIView {
+       let bundle = Bundle(for: type(of: self))
+       let nib = UINib(nibName: "TodayWeatherInfo", bundle: bundle)
+       return nib.instantiate(withOwner: self, options: nil).first! as! UIView
+   }
 }

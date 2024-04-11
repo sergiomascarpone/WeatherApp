@@ -13,7 +13,7 @@ import Alamofire
 
 class TodayViewController: UIViewController {
     
-//    private lazy var dateLabel = UILabel()
+    //    private lazy var dateLabel = UILabel()
     private lazy var imageView = UIImageView()
     private lazy var cityNameLocationLabel = UILabel()
     private lazy var temperatureLabel = UILabel()
@@ -30,34 +30,35 @@ class TodayViewController: UIViewController {
     private lazy var shareButton = UIButton()
     
     //Views
-//    private lazy var TodayWeatherInfo: TodayWeatherInfo = {
-//        let info = TodayWeatherInfo
-//        return info
+    //    private lazy var TodayWeatherInfo: TodayWeatherInfo = {
+    //        let info = TodayWeatherInfo
+    //        return info
+    //    }()
+    
+//    private lazy var precipitation: WeatherPrecipitationView = {
+//        let precipitation = WeatherPrecipitationView(state: .precipitation)
+//        return precipitation
 //    }()
-    private lazy var precipitation: WeatherPrecipitationView = {
-        let precipitation = WeatherPrecipitationView(state: .precipitation)
-        return precipitation
-    }()
-    
-    private lazy var wind: WeatherWindView = {
-        let wind = WeatherWindView(state: .wind)
-        return wind
-    }()
-    
-    private lazy var humidity: WeatherHumidityView = {
-        let humidity = WeatherHumidityView(state: .humidity)
-        return humidity
-    }()
-    
-    private lazy var pressure: WeatherPressureView = {
-        let pressure = WeatherPressureView(state: .pressure)
-        return pressure
-    }()
-    
-    private lazy var windSock: WeatherWindsockView = {
-        let windSock = WeatherWindsockView(state: .windsock)
-        return windSock
-    }()
+//    
+//    private lazy var wind: WeatherWindView = {
+//        let wind = WeatherWindView(state: .wind)
+//        return wind
+//    }()
+//    
+//    private lazy var humidity: WeatherHumidityView = {
+//        let humidity = WeatherHumidityView(state: .humidity)
+//        return humidity
+//    }()
+//    
+//    private lazy var pressure: WeatherPressureView = {
+//        let pressure = WeatherPressureView(state: .pressure)
+//        return pressure
+//    }()
+//    
+//    private lazy var windSock: WeatherWindsockView = {
+//        let windSock = WeatherWindsockView(state: .windsock)
+//        return windSock
+//    }()
     
     let weatherManager = WeatherManager()
     private var presenter: TodayWeatherPresenterProtocol
@@ -74,86 +75,99 @@ class TodayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(precipitation)
-        view.addSubview(wind)
-        view.addSubview(humidity)
-        view.addSubview(pressure)
-        view.addSubview(windSock)
+//        view.addSubview(precipitation)
+//        view.addSubview(wind)
+//        view.addSubview(humidity)
+//        view.addSubview(pressure)
+//        view.addSubview(windSock)
         todayInitialize()
-//        getLocation()
+        //        getLocation()
+        
+        //Добавление CustomView на экран
+        if let customView = loadViewFromXib() {
+            view.addSubview(customView)
+            customView.frame = CGRect(x: 50, y: 50, width: 200, height: 200)
+        }
         
         weatherManager.fetchWeatherData { [weak self] weatherData in
             guard weatherData != nil else { return }
             
-            DispatchQueue.main.async {
-                self?.displayWeatherData(weatherData!)
-            }
+//            DispatchQueue.main.async {
+//                self?.displayWeatherData(weatherData!)
+//            }
         }
     }
     
+    func loadViewFromXib() -> UIView? {
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: "TodayWeatherInfo", bundle: bundle)
+        return nib.instantiate(withOwner: self, options: nil).first as? UIView
+    }
+    
     // Изменение изображения в зависимости от погоды - пока не работает(
-//    func getImageNameForWeatherDescription(_ description: String) -> String {
-//        switch description {
-//        case "clear sky":
-//            return "sun"
-//        case "cloudy day":
-//            return "cloudyDay"
-//        case "scattered clouds":
-//            return "scattered_clouds"
-//        case "light rain":
-//            return "light_rain"
-//        case "overcast clouds":
-//            return "cloud"
-//        default:
-//            return "unknown_weather"
-//        }
-//    }
+    //    func getImageNameForWeatherDescription(_ description: String) -> String {
+    //        switch description {
+    //        case "clear sky":
+    //            return "sun"
+    //        case "cloudy day":
+    //            return "cloudyDay"
+    //        case "scattered clouds":
+    //            return "scattered_clouds"
+    //        case "light rain":
+    //            return "light_rain"
+    //        case "overcast clouds":
+    //            return "cloud"
+    //        default:
+    //            return "unknown_weather"
+    //        }
+    //    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.presenter.requestLocationIfNeeded()
     }
     
-    // Вывод данных о погоде на экран
-    func displayWeatherData(_ weatherData: WeatherData) {
-        
-        self.cityNameLocationLabel.text = "\(weatherData.name)"
-        self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
-        self.precipitation.subtitle.text = "\(weatherData.main.humidity) mm"
-        self.wind.subtitle.text = "\(weatherData.wind.speed) km/h"
-        self.humidity.subtitle.text = "\(weatherData.main.humidity) %"
-        self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
-        self.windSock.subtitle.text = "\(weatherData.wind.deg)"
-
-        self.imageView.image = UIImage(named: "sun")
-    }
     
-//    //LocationManager
-//    private func getLocation() {
-//        LocationManager.shared.getCorrentLocation { location in
-//            print(String(describing: location))
-//        }
+    // Вывод данных о погоде на экран
+//    func displayWeatherData(_ weatherData: WeatherData) {
+//        
+//        self.cityNameLocationLabel.text = "\(weatherData.name)"
+//        self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
+//        self.precipitation.subtitle.text = "\(weatherData.main.humidity) mm"
+//        self.wind.subtitle.text = "\(weatherData.wind.speed) km/h"
+//        self.humidity.subtitle.text = "\(weatherData.main.humidity) %"
+//        self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
+//        self.windSock.subtitle.text = "\(weatherData.wind.deg)"
+//        
+//        self.imageView.image = UIImage(named: "sun")
 //    }
+    
+    //    //LocationManager
+    //    private func getLocation() {
+    //        LocationManager.shared.getCorrentLocation { location in
+    //            print(String(describing: location))
+    //        }
+    //    }
     
     //MARK: - SetUpViews
     private func todayInitialize() {
         view.backgroundColor = .systemBackground
         
-//        //dateLabel
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = .medium
-//        dateFormatter.timeStyle = .none
-//        dateFormatter.locale = Locale(identifier: "en_US")
-//        
-//        let date = Date()
-//        
-//        dateLabel.text = (dateFormatter.string(from: date))
-//        dateLabel.font = UIFont.systemFont(ofSize: 24)
-//        view.addSubview(dateLabel)
-//        dateLabel.snp.makeConstraints {
-//            $0.centerX.equalToSuperview()
-//            $0.top.equalToSuperview().inset(60)
-//        }
+        //        //dateLabel
+        //        let dateFormatter = DateFormatter()
+        //        dateFormatter.dateStyle = .medium
+        //        dateFormatter.timeStyle = .none
+        //        dateFormatter.locale = Locale(identifier: "en_US")
+        //
+        //        let date = Date()
+        //
+        //        dateLabel.text = (dateFormatter.string(from: date))
+        //        dateLabel.font = UIFont.systemFont(ofSize: 24)
+        //        view.addSubview(dateLabel)
+        //        dateLabel.snp.makeConstraints {
+        //            $0.centerX.equalToSuperview()
+        //            $0.top.equalToSuperview().inset(60)
+        //        }
         
         //imageView
         imageView.image = UIImage()
@@ -313,4 +327,5 @@ extension TodayViewController: TodayWeatherResultDelegate {
     func updateWeatherData(weatherModel: ForecastDTO?) {
         self.updateInfo(weatherModel)
     }
+    
 }
