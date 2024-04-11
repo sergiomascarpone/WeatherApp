@@ -30,6 +30,10 @@ class TodayViewController: UIViewController {
     private lazy var shareButton = UIButton()
     
     //Views
+//    private lazy var TodayWeatherInfo: TodayWeatherInfo = {
+//        let info = TodayWeatherInfo
+//        return info
+//    }()
     private lazy var precipitation: WeatherPrecipitationView = {
         let precipitation = WeatherPrecipitationView(state: .precipitation)
         return precipitation
@@ -79,10 +83,10 @@ class TodayViewController: UIViewController {
 //        getLocation()
         
         weatherManager.fetchWeatherData { [weak self] weatherData in
-            guard let weatherData = weatherData else { return }
+            guard weatherData != nil else { return }
             
             DispatchQueue.main.async {
-                self?.displayWeatherData(weatherData)
+                self?.displayWeatherData(weatherData!)
             }
         }
     }
@@ -194,7 +198,7 @@ class TodayViewController: UIViewController {
         //        humidLabel.font = UIFont(name: "Times New Roman", size: 22)
         //        view.addSubview(humidLabel)
         //        humidLabel.snp.makeConstraints { maker in
-        ////            maker.top.equalTo(humidView.snp.bottom).offset(0)
+        //            maker.top.equalTo(humidView.snp.bottom).offset(0)
         //            maker.left.equalToSuperview().inset(55)
         //            maker.top.equalToSuperview().inset(440)
         //        }
