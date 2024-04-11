@@ -43,5 +43,4 @@ class TodayWeatherInfo: UIView {
         let nib = UINib(nibName: "TodayWeatherInfo", bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first! as! UIView
     }
-
 }
