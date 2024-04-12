@@ -97,7 +97,7 @@ class TodayViewController: UIViewController {
             }
         }
     }
-    
+        //XIB.file
 //    func loadViewFromXib() -> UIView? {
 //        let bundle = Bundle(for: type(of: self))
 //        let nib = UINib(nibName: "TodayWeatherInfo", bundle: bundle)
