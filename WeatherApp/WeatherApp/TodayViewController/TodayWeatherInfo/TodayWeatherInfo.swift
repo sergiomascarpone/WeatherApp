@@ -23,19 +23,19 @@ class TodayWeatherInfo: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+//        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
        super .init(coder: aDecoder)
     }
     
-     func setupViews() {
-        let xibView = loadViewFromXib()
-        xibView.frame = self.bounds
-        xibView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.addSubview(xibView)
-    }
+//     func setupViews() {
+//        let xibView = loadViewFromXib()
+//        xibView.frame = self.bounds
+//        xibView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        self.addSubview(xibView)
+//    }
     
     func loadViewFromXib() -> UIView {
        let bundle = Bundle(for: type(of: self))
