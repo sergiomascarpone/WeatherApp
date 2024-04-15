@@ -37,13 +37,13 @@ class ForecastViewController: UIViewController {
     //MARK: - SetUpViews
     private func forecastInitialize() {
         
-        forecastLabel.text = "Forecast"
-        forecastLabel.font = UIFont.systemFont(ofSize: 24)
-        view.addSubview(forecastLabel)
-        forecastLabel.snp.makeConstraints { maker in
-            maker.centerX.equalToSuperview()
-            maker.top.equalToSuperview().inset(50)
-        }
+//        forecastLabel.text = "Forecast"
+//        forecastLabel.font = UIFont.systemFont(ofSize: 24)
+//        view.addSubview(forecastLabel)
+//        forecastLabel.snp.makeConstraints { maker in
+//            maker.centerX.equalToSuperview()
+//            maker.top.equalToSuperview().inset(50)
+//        }
     }
     
     private func configureTableView() {
