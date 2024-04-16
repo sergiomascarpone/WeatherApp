@@ -63,25 +63,26 @@ class TodayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.addSubview(precipitation)
-//        view.addSubview(wind)
-//        view.addSubview(humidity)
-//        view.addSubview(pressure)
-//        view.addSubview(windSock)
+        //        view.addSubview(precipitation)
+        //        view.addSubview(wind)
+        //        view.addSubview(humidity)
+        //        view.addSubview(pressure)
+        //        view.addSubview(windSock)
         todayInitialize()
         
         //Создание экземпляра из XIB.
-       todayWeatherInfoView = TodayWeatherInfo()
+        todayWeatherInfoView = TodayWeatherInfo()
         self.view.addSubview(todayWeatherInfoView)
-        todayWeatherInfoView.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()}
+                todayWeatherInfoView.snp.makeConstraints { make in
+                    make.top.centerY.equalTo(340)
+    }
         
         weatherManager.fetchWeatherData { [weak self] weatherData in
             guard weatherData != nil else { return }
             
-//            DispatchQueue.main.async {
-//                self?.displayWeatherData(weatherData!)
-//            }
+            DispatchQueue.main.async {
+                self?.displayWeatherData(weatherData!)
+            }
         }
     }
     
@@ -110,18 +111,18 @@ class TodayViewController: UIViewController {
     
     
     // Вывод данных о погоде на экран
-//    func displayWeatherData(_ weatherData: WeatherData) {
-//        
-//        self.cityNameLocationLabel.text = "\(weatherData.name)"
-//        self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
-//        self.precipitation.subtitle.text = "\(weatherData.main.humidity) mm"
-//        self.wind.subtitle.text = "\(weatherData.wind.speed) km/h"
-//        self.humidity.subtitle.text = "\(weatherData.main.humidity) %"
-//        self.pressure.subtitle.text = "\(weatherData.main.pressure) hPa"
-//        self.windSock.subtitle.text = "\(weatherData.wind.deg)"
-//        
-//        self.imageView.image = UIImage(named: "sun")
-//    }
+    func displayWeatherData(_ weatherData: WeatherData) {
+        
+        self.cityNameLocationLabel.text = "\(weatherData.name)"
+        self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
+        self.todayWeatherInfoView.humidLabel.text = "\(weatherData.main.humidity) %"
+        self.todayWeatherInfoView.windyLabel.text = "\(weatherData.wind.speed) km/h"
+        self.todayWeatherInfoView.termometerLabel.text = "\(weatherData.main.humidity) %"
+        self.todayWeatherInfoView.pressureLabel.text = "\(weatherData.main.pressure) hPa"
+        self.todayWeatherInfoView.windSockLabel.text = "\(weatherData.wind.deg)"
+        
+        self.imageView.image = UIImage(named: "sun")
+    }
     
     //    //LocationManager
     //    private func getLocation() {
