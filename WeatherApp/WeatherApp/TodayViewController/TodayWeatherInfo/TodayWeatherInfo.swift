@@ -18,35 +18,25 @@ class TodayWeatherInfo: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        loadViewFromXib()
-//        commonInit()
-//        self.initSubviews()
+        self.initSubviews()
     }
-    
-    public required init?(coder aDecoder: NSCoder) {
+   
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initSubviews()
     }
-    
-//    func commonInit() {
-//        let loadXibView = Bundle.main.loadNibNamed("contentView", owner: self, options: nil)![0] as! UIView
-//        loadXibView.frame = self.bounds
-//        addSubview(loadXibView)
-//    }
-//
-//    func loadViewFromXib() -> UIView {
-//        let bundle = Bundle(for: type(of: self))
-//        let nib = UINib(nibName: "contentView", bundle: bundle)
-//        return nib.instantiate(withOwner: self, options: nil).first! as! UIView
-//    }
-    
+
     func initSubviews() {
         let nib = UINib(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
-        nib.instantiate(withOwner: self, options: nil)
+        let contentView = nib.instantiate(withOwner: self, options: nil).first as! UIView
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
-        self.addConstraints()
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
+    
     
     func addConstraints() {
         self.snp.makeConstraints { make in
@@ -54,3 +44,39 @@ class TodayWeatherInfo: UIView {
         }
     }
 }
+
+//    func commonInit() {
+//        let loadXibView = Bundle.main.loadNibNamed("contentView", owner: self, options: nil)![0] as! UIView
+//        loadXibView.frame = self.bounds
+//        addSubview(loadXibView)
+//    }
+
+//    func loadViewFromXib() -> UIView {
+//        let bundle = Bundle(for: type(of: self))
+//        let nib = UINib(nibName: "contentView", bundle: bundle)
+//        return nib.instantiate(withOwner: self, options: nil).first! as! UIView
+//    }
+    
+
+//override init(frame: CGRect) {
+//       super.init(frame: frame)
+//       commonInit()
+//   }
+//   
+//   required init?(coder aDecoder: NSCoder) {
+//       super.init(coder: aDecoder)
+//       commonInit()
+//   }
+//   
+//   private func commonInit() {
+//       guard let view = loadViewFromNib() else { return }
+//       view.frame = bounds
+//       view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//       addSubview(view)
+//   }
+//   
+//   private func loadViewFromNib() -> UIView? {
+//       let nib = UINib(nibName: "TodayWeatherInfo", bundle: Bundle(for: type(of: self)))
+//       return nib.instantiate(withOwner: self, options: nil).first as? UIView
+//   }
+//}

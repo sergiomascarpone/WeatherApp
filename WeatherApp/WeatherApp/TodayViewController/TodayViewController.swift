@@ -13,6 +13,8 @@ import Alamofire
 
 class TodayViewController: UIViewController {
     
+    var todayWeatherInfoView: TodayWeatherInfo!
+    
     private lazy var imageView = UIImageView()
     private lazy var cityNameLocationLabel = UILabel()
     private lazy var temperatureLabel = UILabel()
@@ -57,8 +59,7 @@ class TodayViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //Views.xib
-    let weatherInfoView = TodayWeatherInfo()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +70,11 @@ class TodayViewController: UIViewController {
 //        view.addSubview(windSock)
         todayInitialize()
         
-        //Views.xib
-        view.addSubview(weatherInfoView)
+        //Создание экземпляра из XIB.
+       todayWeatherInfoView = TodayWeatherInfo()
+        self.view.addSubview(todayWeatherInfoView)
+        todayWeatherInfoView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()}
         
         weatherManager.fetchWeatherData { [weak self] weatherData in
             guard weatherData != nil else { return }
