@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="contentView" destination="i5M-Pr-FkT" id="B68-Pe-SvM"/>
                 <outlet property="humidLabel" destination="bEp-cJ-jno" id="a7P-U1-P81"/>
+                <outlet property="pressureLabel" destination="HxN-C4-YgC" id="qK9-f2-ZQD"/>
                 <outlet property="termometer" destination="zEU-5L-nrT" id="Pcd-VH-nfy"/>
                 <outlet property="termometerLabel" destination="Hsc-Td-ZBy" id="8Hz-q5-GIr"/>
                 <outlet property="windSockLabel" destination="T8m-Zp-P12" id="9hI-Al-naE"/>
