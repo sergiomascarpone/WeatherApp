@@ -20,7 +20,7 @@ class TodayWeatherInfo: UIView {
         super.init(frame: frame)
 //        loadViewFromXib()
 //        commonInit()
-        self.initSubviews()
+//        self.initSubviews()
     }
     
     public required init?(coder aDecoder: NSCoder) {
