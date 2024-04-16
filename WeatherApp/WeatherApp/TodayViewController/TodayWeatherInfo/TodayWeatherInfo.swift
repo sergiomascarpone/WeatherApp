@@ -1,4 +1,3 @@
-//
 //  AnotherViewController.swift
 //  WeatherApp
 //
@@ -6,41 +5,52 @@
 //
 
 import UIKit
+import SnapKit
 
 class TodayWeatherInfo: UIView {
     
     @IBOutlet var contentView: UIView!
-    @IBOutlet weak var humidView: UIStackView!
     @IBOutlet weak var humidLabel: UILabel!
-    @IBOutlet weak var windyView: UIStackView!
     @IBOutlet weak var windyLabel: UILabel!
-    @IBOutlet weak var termometerView: UIStackView!
     @IBOutlet weak var termometerLabel: UILabel!
-    @IBOutlet weak var pressureView: UIStackView!
     @IBOutlet weak var pressureLabel: UILabel!
-    @IBOutlet weak var windSockView: UIStackView!
     @IBOutlet weak var windSockLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        setupViews()
+//        loadViewFromXib()
+//        commonInit()
+        self.initSubviews()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-       super .init(coder: aDecoder)
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initSubviews()
     }
     
-//     func setupViews() {
-//        let xibView = loadViewFromXib()
-//        xibView.frame = self.bounds
-//        xibView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        self.addSubview(xibView)
+//    func commonInit() {
+//        let loadXibView = Bundle.main.loadNibNamed("contentView", owner: self, options: nil)![0] as! UIView
+//        loadXibView.frame = self.bounds
+//        addSubview(loadXibView)
+//    }
+//
+//    func loadViewFromXib() -> UIView {
+//        let bundle = Bundle(for: type(of: self))
+//        let nib = UINib(nibName: "contentView", bundle: bundle)
+//        return nib.instantiate(withOwner: self, options: nil).first! as! UIView
 //    }
     
-    func loadViewFromXib() -> UIView {
-       let bundle = Bundle(for: type(of: self))
-       let nib = UINib(nibName: "TodayWeatherInfo", bundle: bundle)
-       return nib.instantiate(withOwner: self, options: nil).first! as! UIView
-   }
+    func initSubviews() {
+        let nib = UINib(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
+        nib.instantiate(withOwner: self, options: nil)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(contentView)
+        self.addConstraints()
+    }
     
+    func addConstraints() {
+        self.snp.makeConstraints { make in
+            make.left.right.bottom.top.equalTo(contentView)
+        }
+    }
 }

@@ -10,18 +10,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodayWeatherInfo" customModule="WeatherApp" customModuleProvider="target">
             <connections>
-                <outlet property="contentView" destination="i5M-Pr-FkT" id="4vG-qP-Y1W"/>
-                <outlet property="humidLabel" destination="bEp-cJ-jno" id="AHc-5u-IPn"/>
-                <outlet property="humidView" destination="7JJ-WY-qhM" id="oM8-pF-zsf"/>
-                <outlet property="pressureLabel" destination="tO2-yZ-pbA" id="0iA-Tx-BUp"/>
-                <outlet property="pressureView" destination="Pla-jB-ak6" id="L3m-Tl-DO9"/>
-                <outlet property="termometerLabel" destination="Hsc-Td-ZBy" id="qmz-B8-mqB"/>
-                <outlet property="termometerView" destination="Gca-qB-gAQ" id="4Wh-IJ-81Q"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="windSockLabel" destination="T8m-Zp-P12" id="Uoj-B6-agD"/>
-                <outlet property="windSockView" destination="l0I-mL-8mE" id="FKx-A9-cuo"/>
-                <outlet property="windyLabel" destination="4Sn-aM-MBT" id="h6b-jc-yez"/>
-                <outlet property="windyView" destination="ZJZ-Mi-Oc5" id="pex-Nh-iQj"/>
+                <outlet property="contentView" destination="i5M-Pr-FkT" id="B68-Pe-SvM"/>
+                <outlet property="humidLabel" destination="bEp-cJ-jno" id="a7P-U1-P81"/>
+                <outlet property="pressureLabel" destination="tO2-yZ-pbA" id="NUi-DA-84B"/>
+                <outlet property="termometer" destination="zEU-5L-nrT" id="Pcd-VH-nfy"/>
+                <outlet property="termometerLabel" destination="Hsc-Td-ZBy" id="8Hz-q5-GIr"/>
+                <outlet property="windSockLabel" destination="T8m-Zp-P12" id="9hI-Al-naE"/>
+                <outlet property="windyLabel" destination="4Sn-aM-MBT" id="LK4-3z-Tj8"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -82,7 +77,7 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pla-jB-ak6">
-                    <rect key="frame" x="62" y="255.99999999999994" width="100" height="120.33333333333331"/>
+                    <rect key="frame" x="62" y="255.99999999999997" width="100" height="120.33333333333334"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOk-PX-qa9">
                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -101,7 +96,7 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="l0I-mL-8mE">
-                    <rect key="frame" x="232" y="255.99999999999974" width="100" height="120.33333333333334"/>
+                    <rect key="frame" x="232" y="255.99999999999972" width="100" height="120.33333333333331"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="100" image="windSock" translatesAutoresizingMaskIntoConstraints="NO" id="laz-gn-AHu">
                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
