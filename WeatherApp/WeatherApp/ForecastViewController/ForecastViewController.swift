@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-// разобраться с таблицей...
+// разабраться с таблицей...
 class ForecastViewController: UIViewController {
 
     private lazy var forecastLabel = UITextField()
@@ -15,23 +15,25 @@ class ForecastViewController: UIViewController {
     //    private lazy var reuseIdentifier = "Forecast"
     
     private lazy var dayForecast = [
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "cloudy", weatherType: "cloud"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "rainy", weatherType: "rain"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "suny", weatherType: "sun"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "rainy", weatherType: "rain"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "rainy", weatherType: "rain"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "rainy", weatherType: "rain"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "rainy", weatherType: "rain"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "rainy", weatherType: "rain"),
+        WeatherDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 C", summary: "rainy", weatherType: "rain"),
     ]
+    
+    private var timer: Timer?
    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureTableView()
         forecastInitialize()
+        
     }
     
     //MARK: - SetUpViews
@@ -62,12 +64,14 @@ class ForecastViewController: UIViewController {
         }
     }
     
-    struct weakDay {
+    struct WeatherDay {
         var image: String
         var date: String
         var temperature: String
         var summary: String
+        var weatherType: String
     }
+
 }
 
 //MARK: -
@@ -79,11 +83,13 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
-        let weather = dayForecast[indexPath.row]
-        cell.imageLabel.image = UIImage(named: weather.image)
-        cell.dateLabel.text = weather.date
-        cell.temperatureLabel.text = weather.temperature
-        cell.summaryLabel.text = weather.summary
+        let weatherDay = dayForecast[indexPath.row]
+        cell.imageLabel.image = UIImage(named: weatherDay.image)
+        cell.dateLabel.text = weatherDay.date
+        cell.temperatureLabel.text = weatherDay.temperature
+        cell.summaryLabel.text = weatherDay.summary
+        // Установите изображение в зависимости от типа погоды
+        cell.imageLabel.image = UIImage(named: weatherDay.weatherType)
         return cell
     }
 }
@@ -110,6 +116,7 @@ class CustomCell: UITableViewCell {
         fatalError("Error")
     }
 }
+
 
 
 //
