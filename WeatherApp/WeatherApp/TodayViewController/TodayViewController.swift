@@ -21,30 +21,30 @@ class TodayViewController: UIViewController {
    
     private lazy var shareButton = UIButton()
     
-    private lazy var precipitation: WeatherPrecipitationView = {
-        let precipitation = WeatherPrecipitationView(state: .precipitation)
-        return precipitation
-    }()
-    
-    private lazy var wind: WeatherWindView = {
-        let wind = WeatherWindView(state: .wind)
-        return wind
-    }()
-    
-    private lazy var humidity: WeatherHumidityView = {
-        let humidity = WeatherHumidityView(state: .humidity)
-        return humidity
-    }()
-    
-    private lazy var pressure: WeatherPressureView = {
-        let pressure = WeatherPressureView(state: .pressure)
-        return pressure
-    }()
-    
-    private lazy var windSock: WeatherWindsockView = {
-        let windSock = WeatherWindsockView(state: .windsock)
-        return windSock
-    }()
+//    private lazy var precipitation: WeatherPrecipitationView = {
+//        let precipitation = WeatherPrecipitationView(state: .precipitation)
+//        return precipitation
+//    }()
+//    
+//    private lazy var wind: WeatherWindView = {
+//        let wind = WeatherWindView(state: .wind)
+//        return wind
+//    }()
+//    
+//    private lazy var humidity: WeatherHumidityView = {
+//        let humidity = WeatherHumidityView(state: .humidity)
+//        return humidity
+//    }()
+//    
+//    private lazy var pressure: WeatherPressureView = {
+//        let pressure = WeatherPressureView(state: .pressure)
+//        return pressure
+//    }()
+//    
+//    private lazy var windSock: WeatherWindsockView = {
+//        let windSock = WeatherWindsockView(state: .windsock)
+//        return windSock
+//    }()
     
     let weatherManager = WeatherManager()
     private var presenter: TodayWeatherPresenterProtocol
@@ -87,22 +87,22 @@ class TodayViewController: UIViewController {
     }
     
     // Изменение изображения в зависимости от погоды - пока не работает(
-    //    func getImageNameForWeatherDescription(_ description: String) -> String {
-    //        switch description {
-    //        case "clear sky":
-    //            return "sun"
-    //        case "cloudy day":
-    //            return "cloudyDay"
-    //        case "scattered clouds":
-    //            return "scattered_clouds"
-    //        case "light rain":
-    //            return "light_rain"
-    //        case "overcast clouds":
-    //            return "cloud"
-    //        default:
-    //            return "unknown_weather"
-    //        }
-    //    }
+//        func getImageNameForWeatherDescription(_ description: String) -> String {
+//            switch description {
+//            case "clear sky":
+//                return "sun"
+//            case "cloudy day":
+//                return "cloudyDay"
+//            case "scattered clouds":
+//                return "scattered_clouds"
+//            case "light rain":
+//                return "light_rain"
+//            case "overcast clouds":
+//                return "cloud"
+//            default:
+//                return "unknown_weather"
+//            }
+//        }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -117,11 +117,11 @@ class TodayViewController: UIViewController {
         self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
         self.todayWeatherInfoView.humidLabel.text = "\(weatherData.main.humidity) %"
         self.todayWeatherInfoView.windyLabel.text = "\(weatherData.wind.speed) km/h"
-        self.todayWeatherInfoView.termometerLabel.text = "\(weatherData.main.humidity) %"
+        self.todayWeatherInfoView.termometerLabel.text = "\(weatherData.main.humidity) mm"
         self.todayWeatherInfoView.pressureLabel.text = "\(weatherData.main.pressure) hPa"
         self.todayWeatherInfoView.windSockLabel.text = "\(weatherData.wind.deg)"
         
-        self.imageView.image = UIImage(named: "sun")
+        imageView.image = UIImage(named: weatherData.weather[0].icon)
     }
     
     //    //LocationManager
