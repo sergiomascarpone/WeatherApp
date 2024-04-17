@@ -15,7 +15,7 @@ class TodayViewController: UIViewController {
     
     var todayWeatherInfoView: TodayWeatherInfo!
     
-    private lazy var imageView = UIImageView()
+    private var imageView = UIImageView()
     private lazy var cityNameLocationLabel = UILabel()
     private lazy var temperatureLabel = UILabel()
    
@@ -109,7 +109,6 @@ class TodayViewController: UIViewController {
         self.presenter.requestLocationIfNeeded()
     }
     
-    
     // Вывод данных о погоде на экран
     func displayWeatherData(_ weatherData: WeatherData) {
         
@@ -121,7 +120,8 @@ class TodayViewController: UIViewController {
         self.todayWeatherInfoView.pressureLabel.text = "\(weatherData.main.pressure) hPa"
         self.todayWeatherInfoView.windSockLabel.text = "\(weatherData.wind.deg)"
         
-        imageView.image = UIImage(named: weatherData.weather[0].icon)
+        self.imageView.image = UIImage(named: "sun")
+        
     }
     
     //    //LocationManager
