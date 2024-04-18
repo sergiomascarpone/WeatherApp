@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-// разобраться с таблицей...
+// разабраться с таблицей...
 class ForecastViewController: UIViewController {
 
     private lazy var forecastLabel = UITextField()
@@ -22,6 +22,7 @@ class ForecastViewController: UIViewController {
     }
     
     private lazy var dayForecast = [
+
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
@@ -34,11 +35,14 @@ class ForecastViewController: UIViewController {
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
     ]
     
+    private var timer: Timer?
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureTableView()
         forecastInitialize()
+        
     }
     
     //MARK: - SetUpViews
@@ -50,6 +54,7 @@ class ForecastViewController: UIViewController {
             maker.centerX.equalToSuperview()
             maker.top.equalToSuperview().inset(50)
         }
+
     }
     
     private func configureTableView() {
@@ -68,6 +73,14 @@ class ForecastViewController: UIViewController {
         }
     }
     
+    struct WeatherDay {
+        var image: String
+        var date: String
+        var temperature: String
+        var summary: String
+        var weatherType: String
+    }
+
 }
 
 //MARK: -
@@ -118,6 +131,7 @@ class CustomCell: UITableViewCell {
         fatalError("Error")
     }
 }
+
 
 
 //

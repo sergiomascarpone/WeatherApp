@@ -1,4 +1,3 @@
-//
 //  AnotherViewController.swift
 //  WeatherApp
 //
@@ -6,18 +5,40 @@
 //
 
 import UIKit
+import SnapKit
 
-class TodayWeatherInfo: UIViewController {
-
-    @IBOutlet var contentView: UIView!
-    @IBOutlet weak var humidView: UIStackView!
-    @IBOutlet weak var windyView: UIStackView!
-    @IBOutlet weak var termometerView: UIStackView!
-    @IBOutlet weak var pressureView: UIStackView!
-    @IBOutlet weak var windSockView: UIStackView!
+class TodayWeatherInfo: UIView {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet var  weatherInfoView: UIView!
+    @IBOutlet weak var humidLabel: UILabel!
+    @IBOutlet weak var windyLabel: UILabel!
+    @IBOutlet weak var termometerLabel: UILabel!
+    @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var windSockLabel: UILabel!
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.initSubviews()
+//        self.addConstraints()
     }
-
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    private func initSubviews() {
+        let nib = UINib(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
+        nib.instantiate(withOwner: self, options: nil)
+        weatherInfoView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(weatherInfoView)
+//        self.addConstraints()
+    }
+    
+//    private func addConstraints() {
+//        self.snp.makeConstraints { make in
+//            make.left.right.bottom.top.equalTo(weatherInfoView)
+//        }
+//    }
 }
+
