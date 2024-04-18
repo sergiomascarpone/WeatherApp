@@ -25,7 +25,7 @@ final class TodayWeatherPresenter: NSObject, TodayWeatherPresenterProtocol {
         self.locationManager.delegate = self
     }
 
-     func defineWindDirection(degree: Int) -> String {
+    func defineWindDirection(degree: Int) -> String {
         switch degree {
         case 0..<23: return "N"
         case 338..<360: return "N"

@@ -13,7 +13,7 @@ class WeatherManager {
     let apiKey = "70b9166dc33204c62ee3c1e299ac88ee"
     
     func fetchWeatherData(completion: @escaping (WeatherData?) -> Void) {
-        let url = ("https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=\(apiKey)&units=metric")
+        let url = ("https://api.openweathermap.org/data/2.5/weather?q=Dubai&appid=\(apiKey)&units=metric")
         
         AF.request(url).responseDecodable(of: WeatherData.self) { response in
             if let weatherData = response.value {
