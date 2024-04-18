@@ -14,37 +14,10 @@ import Alamofire
 class TodayViewController: UIViewController {
     
     var todayWeatherInfoView: TodayWeatherInfo!
-    
     private var imageView = UIImageView()
     private lazy var cityNameLocationLabel = UILabel()
     private lazy var temperatureLabel = UILabel()
-   
     private lazy var shareButton = UIButton()
-    
-//    private lazy var precipitation: WeatherPrecipitationView = {
-//        let precipitation = WeatherPrecipitationView(state: .precipitation)
-//        return precipitation
-//    }()
-//    
-//    private lazy var wind: WeatherWindView = {
-//        let wind = WeatherWindView(state: .wind)
-//        return wind
-//    }()
-//    
-//    private lazy var humidity: WeatherHumidityView = {
-//        let humidity = WeatherHumidityView(state: .humidity)
-//        return humidity
-//    }()
-//    
-//    private lazy var pressure: WeatherPressureView = {
-//        let pressure = WeatherPressureView(state: .pressure)
-//        return pressure
-//    }()
-//    
-//    private lazy var windSock: WeatherWindsockView = {
-//        let windSock = WeatherWindsockView(state: .windsock)
-//        return windSock
-//    }()
     
     let weatherManager = WeatherManager()
     private var presenter: TodayWeatherPresenterProtocol
@@ -58,8 +31,6 @@ class TodayViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +79,7 @@ class TodayViewController: UIViewController {
         super.viewWillAppear(animated)
         self.presenter.requestLocationIfNeeded()
     }
-    
+   
     // Вывод данных о погоде на экран
     func displayWeatherData(_ weatherData: WeatherData) {
         
@@ -119,37 +90,13 @@ class TodayViewController: UIViewController {
         self.todayWeatherInfoView.termometerLabel.text = "\(weatherData.main.humidity) mm"
         self.todayWeatherInfoView.pressureLabel.text = "\(weatherData.main.pressure) hPa"
         self.todayWeatherInfoView.windSockLabel.text = "\(weatherData.wind.deg)"
-        
+
         self.imageView.image = UIImage(named: "sun")
-        
     }
-    
-    //    //LocationManager
-    //    private func getLocation() {
-    //        LocationManager.shared.getCorrentLocation { location in
-    //            print(String(describing: location))
-    //        }
-    //    }
     
     //MARK: - SetUpViews
     private func todayInitialize() {
         view.backgroundColor = .systemBackground
-        
-        //        //dateLabel
-        //        let dateFormatter = DateFormatter()
-        //        dateFormatter.dateStyle = .medium
-        //        dateFormatter.timeStyle = .none
-        //        dateFormatter.locale = Locale(identifier: "en_US")
-        //
-        //        let date = Date()
-        //
-        //        dateLabel.text = (dateFormatter.string(from: date))
-        //        dateLabel.font = UIFont.systemFont(ofSize: 24)
-        //        view.addSubview(dateLabel)
-        //        dateLabel.snp.makeConstraints {
-        //            $0.centerX.equalToSuperview()
-        //            $0.top.equalToSuperview().inset(60)
-        //        }
         
         //imageView
         imageView.image = UIImage()
