@@ -34,11 +34,6 @@ class TodayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        view.addSubview(precipitation)
-        //        view.addSubview(wind)
-        //        view.addSubview(humidity)
-        //        view.addSubview(pressure)
-        //        view.addSubview(windSock)
         todayInitialize()
         
         //Создание экземпляра из XIB.

@@ -24,11 +24,10 @@ class ForecastViewController: UIViewController {
     private lazy var dayForecast = [
 
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "sun"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "sun"),
+        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "rain"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
@@ -73,13 +72,13 @@ class ForecastViewController: UIViewController {
         }
     }
     
-    struct WeatherDay {
-        var image: String
-        var date: String
-        var temperature: String
-        var summary: String
-        var weatherType: String
-    }
+//    struct WeatherDay {
+//        var image: String
+//        var date: String
+//        var temperature: String
+//        var summary: String
+//        var weatherType: String
+//    }
 
 }
 
@@ -93,7 +92,7 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
         let weatherDay = dayForecast[indexPath.row]
-        cell.imageLabel.image = UIImage(named: weatherDay.image)
+        cell.imageLabel.image = UIImage(named: "sun")
         cell.updateDateTime()
         cell.temperatureLabel.text = weatherDay.temperature
         cell.summaryLabel.text = weatherDay.summary
@@ -114,6 +113,10 @@ class CustomCell: UITableViewCell {
            let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
            dateLabel.text = dateString + " | " + timeString
        }
+    
+    func updateTemperature(_ weatherData: WeatherData) {
+        temperatureLabel.text = "\(weatherData.main.temp)°C"
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
