@@ -4,53 +4,54 @@
 //
 //  Created by Sergio Mascarpone on 22.02.24.
 //
+
 import SnapKit
 import UIKit
+import Alamofire
 
-// разабраться с таблицей...
 class ForecastViewController: UIViewController {
 
     private lazy var forecastLabel = UITextField()
     private lazy var tableView = UITableView()
     
-    struct weakDay {
+    private var weatherData: [WeatherData] = [
+        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "10 °C", summary: "sun"),
+        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
+        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
+        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "8 °C", summary: "cloudy"),
+        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
+        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
+        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy")
+    ] // Структура для хранения данных о погоде
+    
+    struct WeatherData: Codable {
         var image: String
         var date: String
         var temperature: String
         var summary: String
     }
-    
-    private lazy var dayForecast = [
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "sun"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "sun"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "rain"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-        weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
-    ]
-    
-    private var timer: Timer?
    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureTableView()
         forecastInitialize()
+         
+    }
+ 
+    private func updateWeatherData(_ weatherData: [WeatherData]) {
+        self.weatherData = weatherData
+        self.tableView.reloadData()
     }
     
     //MARK: - SetUpViews
     private func forecastInitialize() {
-        
         forecastLabel.font = UIFont.systemFont(ofSize: 24)
         view.addSubview(forecastLabel)
         forecastLabel.snp.makeConstraints { maker in
             maker.centerX.equalToSuperview()
             maker.top.equalToSuperview().inset(50)
         }
-
     }
     
     private func configureTableView() {
@@ -68,31 +69,21 @@ class ForecastViewController: UIViewController {
             make.bottom.equalToSuperview().inset(80)
         }
     }
-    
-//    struct WeatherDay {
-//        var image: String
-//        var date: String
-//        var temperature: String
-//        var summary: String
-//        var weatherType: String
-//    }
-
 }
 
-//MARK: -
 extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dayForecast.count
+        return weatherData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
-        let weatherDay = dayForecast[indexPath.row]
-        cell.imageLabel.image = UIImage(named: "sun")
+        let weather = weatherData[indexPath.row]
+        cell.imageLabel.image = UIImage(named: weather.image)
         cell.updateDateTime()
-        cell.temperatureLabel.text = weatherDay.temperature
-        cell.summaryLabel.text = weatherDay.summary
+        cell.temperatureLabel.text = weather.temperature
+        cell.summaryLabel.text = weather.summary
         return cell
     }
 }
@@ -104,12 +95,12 @@ class CustomCell: UITableViewCell {
     var summaryLabel = UILabel()
     
     func updateDateTime() {
-           let dateFormatter = DateFormatter()
-           dateFormatter.dateFormat = "HH:mm"
-           let timeString = dateFormatter.string(from: Date())
-           let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
-           dateLabel.text = dateString + " | " + timeString
-       }
+               let dateFormatter = DateFormatter()
+               dateFormatter.dateFormat = "HH:mm"
+               let timeString = dateFormatter.string(from: Date())
+               let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
+               dateLabel.text = dateString + " | " + timeString
+           }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -127,41 +118,3 @@ class CustomCell: UITableViewCell {
         fatalError("Error")
     }
 }
-
-
-
-//
-//let weatherManager = WeatherManager()
-//   var weatherData: [WeatherData] = []
-//   
-//   override func viewDidLoad() {
-//       super.viewDidLoad()
-//       
-//       weatherManager.fetchWeatherData { [weak self] weatherData in
-//           guard let weatherData = weatherData else { return }
-//           
-//           self?.weatherData = weatherData
-//           DispatchQueue.main.async {
-//               self?.tableView.reloadData()
-//           }
-//       }
-//   }
-//   
-//   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//       return weatherData.count
-//   }
-//   
-//   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//       let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath)
-//       let data = weatherData[indexPath.row]
-//       
-//       let dateTime = NSDate(timeIntervalSince1970: data.dt)
-//       let dateFormatter = DateFormatter()
-//       dateFormatter.dateFormat = "HH:mm"
-//       cell.textLabel?.text = dateFormatter.string(from: dateTime as Date)
-//       cell.detailTextLabel?.text = "\(data.main.temp)°C"
-//       
-//       return cell
-//   }
-//
-//
