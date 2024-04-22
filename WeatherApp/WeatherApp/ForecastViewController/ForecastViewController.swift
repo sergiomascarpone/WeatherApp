@@ -12,7 +12,6 @@ class ForecastViewController: UIViewController {
 
     private lazy var forecastLabel = UITextField()
     private lazy var tableView = UITableView()
-    //    private lazy var reuseIdentifier = "Forecast"
     
     struct weakDay {
         var image: String
@@ -22,7 +21,6 @@ class ForecastViewController: UIViewController {
     }
     
     private lazy var dayForecast = [
-
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "sun"),
         weakDay(image: "today", date: "23.12.2024 | 0:00", temperature: "12 °C", summary: "cloudy"),
@@ -41,7 +39,6 @@ class ForecastViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureTableView()
         forecastInitialize()
-        
     }
     
     //MARK: - SetUpViews
@@ -113,10 +110,6 @@ class CustomCell: UITableViewCell {
            let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
            dateLabel.text = dateString + " | " + timeString
        }
-    
-    func updateTemperature(_ weatherData: WeatherData) {
-        temperatureLabel.text = "\(weatherData.main.temp)°C"
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
