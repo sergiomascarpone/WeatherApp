@@ -52,23 +52,17 @@ class TodayViewController: UIViewController {
         }
     }
     
-    // Изменение изображения в зависимости от погоды - пока не работает(
-//        func getImageNameForWeatherDescription(_ description: String) -> String {
-//            switch description {
-//            case "clear sky":
-//                return "sun"
-//            case "cloudy day":
-//                return "cloudyDay"
-//            case "scattered clouds":
-//                return "scattered_clouds"
-//            case "light rain":
-//                return "light_rain"
-//            case "overcast clouds":
-//                return "cloud"
-//            default:
-//                return "unknown_weather"
-//            }
-//        }
+    // Изменение изображения в зависимости от погоды - работает)
+    func weatherImageName(for weatherDescription: String) -> String {
+        switch weatherDescription.lowercased() {
+            case let str where str.contains("clear"): return "sun"
+            case let str where str.contains("overcast clouds"): return "cloudyDay"
+            case let str where str.contains("clouds"): return "cloud"
+            case let str where str.contains("snow"): return "snowing"
+            case let str where str.contains("rain"): return "rain"
+            default: return "unknown"
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,7 +80,8 @@ class TodayViewController: UIViewController {
         self.todayWeatherInfoView.pressureLabel.text = "\(weatherData.main.pressure) hPa"
         self.todayWeatherInfoView.windSockLabel.text = "\(weatherData.wind.deg)"
 
-        self.imageView.image = UIImage(named: "sun")
+        //Вывод иконки по описанию погоды
+        self.imageView.image = UIImage(named: weatherImageName(for: weatherData.weather.first?.description ?? ""))
     }
     
     //MARK: - SetUpViews

@@ -14,17 +14,17 @@ class ForecastViewController: UIViewController {
     private lazy var forecastLabel = UITextField()
     private lazy var tableView = UITableView()
     
-    private var weatherData: [WeatherData] = [
-        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "10 °C", summary: "sun"),
-        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
-        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
-        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "8 °C", summary: "cloudy"),
-        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
-        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
-        WeatherData(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy")
-    ] // Структура для хранения данных о погоде
+    private var weatherList: [WeatherTableList] = [
+        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "10 °C", summary: "sun"),
+        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "7 °C", summary: "cloudy"),
+        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
+        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "8 °C", summary: "cloudy"),
+        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
+        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
+        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy")
+    ]
     
-    struct WeatherData: Codable {
+    struct WeatherTableList: Codable {
         var image: String
         var date: String
         var temperature: String
@@ -39,8 +39,8 @@ class ForecastViewController: UIViewController {
          
     }
  
-    private func updateWeatherData(_ weatherData: [WeatherData]) {
-        self.weatherData = weatherData
+    private func updateWeatherData(_ weatherData: [WeatherTableList]) {
+        self.weatherList = weatherData
         self.tableView.reloadData()
     }
     
@@ -72,17 +72,17 @@ class ForecastViewController: UIViewController {
 }
 
 extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
-    
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatherData.count
+        return weatherList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
-        let weather = weatherData[indexPath.row]
+        let weather = weatherList[indexPath.row]
         cell.imageLabel.image = UIImage(named: weather.image)
         cell.updateDateTime()
-        cell.temperatureLabel.text = weather.temperature
+        cell.temperatureLabel.text = "\(weather.temperature)"
         cell.summaryLabel.text = weather.summary
         return cell
     }
@@ -101,6 +101,10 @@ class CustomCell: UITableViewCell {
                let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
                dateLabel.text = dateString + " | " + timeString
            }
+    
+//    func updateTemperatureLabel(_ weatherData: WeatherData) {
+//        self.temperatureLabel.text = "\(weatherData.main.temp)"
+//    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
