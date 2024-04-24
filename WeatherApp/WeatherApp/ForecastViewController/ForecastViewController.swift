@@ -10,18 +10,18 @@ import UIKit
 import Alamofire
 
 class ForecastViewController: UIViewController {
-
+    
     private lazy var forecastLabel = UITextField()
     private lazy var tableView = UITableView()
     
     private var weatherList: [WeatherTableList] = [
-        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "10 °C", summary: "sun"),
-        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "7 °C", summary: "cloudy"),
-        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
-        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "8 °C", summary: "cloudy"),
-        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
-        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy"),
-        WeatherTableList(image: "sun", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "cloudy")
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "10 °C", summary: "rain"),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "7 °C", summary: "rain"),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "overcast clouds"),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "8 °C", summary: "overcast clouds"),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "clear"),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "clear"),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "clouds")
     ]
     
     struct WeatherTableList: Codable {
@@ -30,15 +30,26 @@ class ForecastViewController: UIViewController {
         var temperature: String
         var summary: String
     }
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureTableView()
         forecastInitialize()
-         
     }
- 
+    
+    // Изменение изображения в зависимости от погоды - работает)
+    func weatherImageNameTableView(for weatherDescription: String) -> String {
+        switch weatherDescription.lowercased() {
+        case let str where str.contains("clear"): return "sun"
+        case let str where str.contains("overcast clouds"): return "cloudyDay"
+        case let str where str.contains("clouds"): return "cloud"
+        case let str where str.contains("snow"): return "snowing"
+        case let str where str.contains("rain"): return "rain"
+        default: return "unknown"
+        }
+    }
+    
     private func updateWeatherData(_ weatherData: [WeatherTableList]) {
         self.weatherList = weatherData
         self.tableView.reloadData()
@@ -72,7 +83,7 @@ class ForecastViewController: UIViewController {
 }
 
 extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return weatherList.count
     }
@@ -80,9 +91,12 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
         let weather = weatherList[indexPath.row]
-        cell.imageLabel.image = UIImage(named: weather.image)
+        
+        let imageName = weatherImageNameTableView(for: weather.summary)
+        cell.imageLabel.image = UIImage(named: imageName)
         cell.updateDateTime()
         cell.temperatureLabel.text = "\(weather.temperature)"
+        
         cell.summaryLabel.text = weather.summary
         return cell
     }
@@ -95,16 +109,12 @@ class CustomCell: UITableViewCell {
     var summaryLabel = UILabel()
     
     func updateDateTime() {
-               let dateFormatter = DateFormatter()
-               dateFormatter.dateFormat = "HH:mm"
-               let timeString = dateFormatter.string(from: Date())
-               let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
-               dateLabel.text = dateString + " | " + timeString
-           }
-    
-//    func updateTemperatureLabel(_ weatherData: WeatherData) {
-//        self.temperatureLabel.text = "\(weatherData.main.temp)"
-//    }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let timeString = dateFormatter.string(from: Date())
+        let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
+        dateLabel.text = dateString + " | " + timeString
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

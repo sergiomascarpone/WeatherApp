@@ -146,7 +146,7 @@ class TodayViewController: UIViewController {
 
 extension TodayViewController: TodayWeatherResultDelegate {
     func toggleAlert(message: String) {
-        debugPrint("no connect") //Тут надо показать адерт, что не так
+        debugPrint("Please - connect to the Internet") //Тут надо показать адерт, что не так
     }
     
     func updateWeatherData(weatherModel: ForecastDTO?) {
