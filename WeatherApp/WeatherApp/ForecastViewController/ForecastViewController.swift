@@ -15,13 +15,13 @@ class ForecastViewController: UIViewController {
     private lazy var tableView = UITableView()
     
     private var weatherList: [WeatherTableList] = [
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "10 °C", summary: "rain"),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "7 °C", summary: "rain"),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "overcast clouds"),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "8 °C", summary: "overcast clouds"),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "clear"),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "clear"),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: "clouds")
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "10 °C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "7 °C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "8 °C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: " ")
     ]
     
     struct WeatherTableList: Codable {
@@ -90,45 +90,51 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
-        let weather = weatherList[indexPath.row]
         
-        let imageName = weatherImageNameTableView(for: weather.summary)
-        cell.imageLabel.image = UIImage(named: imageName)
-        cell.updateDateTime()
-        cell.temperatureLabel.text = "\(weather.temperature)"
+        let apiKey = "70b9166dc33204c62ee3c1e299ac88ee"
+        let url = ("https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=\(apiKey)&units=metric")
         
-        cell.summaryLabel.text = weather.summary
+        AF.request(url).responseDecodable(of: WeatherData.self) { response in
+            guard let weatherData = response.value else { return }
+//            let weather = self.weatherList[indexPath.row]
+//            let imageName = self.weatherImageNameTableView(for: weather.summary)
+            cell.imageLabel.image = UIImage(named: self.weatherImageNameTableView(for: weatherData.weather.first?.description ?? ""))
+            cell.updateDateTime()
+            cell.temperatureLabel.text = "\(weatherData.main.temp) °C"
+            
+            cell.summaryLabel.text = "\(weatherData.weather.first?.description ?? "Unknown")"
+        }
         return cell
     }
-}
-
-class CustomCell: UITableViewCell {
-    var imageLabel = UIImageView()
-    var dateLabel = UILabel()
-    var temperatureLabel = UILabel()
-    var summaryLabel = UILabel()
     
-    func updateDateTime() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        let timeString = dateFormatter.string(from: Date())
-        let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
-        dateLabel.text = dateString + " | " + timeString
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(imageLabel)
-        addSubview(dateLabel)
-        addSubview(temperatureLabel)
-        addSubview(summaryLabel)
-        imageLabel.frame = CGRect(x: 20, y: 10, width: 50, height: 50)
-        dateLabel.frame = CGRect(x: 100, y: 10, width: 180, height: 20)
-        temperatureLabel.frame = CGRect(x: 300, y: 25, width: 150, height: 25)
-        summaryLabel.frame = CGRect(x: 100, y: 40, width: 180, height: 20)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("Error")
+    class CustomCell: UITableViewCell {
+        var imageLabel = UIImageView()
+        var dateLabel = UILabel()
+        var temperatureLabel = UILabel()
+        var summaryLabel = UILabel()
+        
+        func updateDateTime() {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            let timeString = dateFormatter.string(from: Date())
+            let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
+            dateLabel.text = dateString + " | " + timeString
+        }
+        
+        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+            super.init(style: style, reuseIdentifier: reuseIdentifier)
+            addSubview(imageLabel)
+            addSubview(dateLabel)
+            addSubview(temperatureLabel)
+            addSubview(summaryLabel)
+            imageLabel.frame = CGRect(x: 20, y: 10, width: 50, height: 50)
+            dateLabel.frame = CGRect(x: 100, y: 10, width: 180, height: 20)
+            temperatureLabel.frame = CGRect(x: 300, y: 25, width: 150, height: 25)
+            summaryLabel.frame = CGRect(x: 100, y: 40, width: 180, height: 20)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("Error")
+        }
     }
 }
