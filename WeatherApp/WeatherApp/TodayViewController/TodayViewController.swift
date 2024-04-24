@@ -18,7 +18,6 @@ class TodayViewController: UIViewController {
     private lazy var cityNameLocationLabel = UILabel()
     private lazy var temperatureLabel = UILabel()
     private lazy var shareButton = UIButton()
-    
     let weatherManager = WeatherManager()
     private var presenter: TodayWeatherPresenterProtocol
     
@@ -135,7 +134,7 @@ class TodayViewController: UIViewController {
     }
     
     func updateInfo(_ weatherData: ForecastDTO?) {
-        debugPrint(weatherData)
+        debugPrint(weatherData!)
     }
     
     //MARK: Для открытия "поделиться" используется UIActivityViewController
@@ -147,7 +146,7 @@ class TodayViewController: UIViewController {
 
 extension TodayViewController: TodayWeatherResultDelegate {
     func toggleAlert(message: String) {
-        debugPrint(message) //Тут надо показать адерт, что не так
+        debugPrint("no connect") //Тут надо показать адерт, что не так
     }
     
     func updateWeatherData(weatherModel: ForecastDTO?) {
