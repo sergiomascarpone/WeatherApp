@@ -15,13 +15,13 @@ class ForecastViewController: UIViewController {
     private lazy var tableView = UITableView()
     
     private var weatherList: [WeatherTableList] = [
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "10 °C", summary: " "),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "7 °C", summary: " "),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: " "),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "8 °C", summary: " "),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: " "),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: " "),
-        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "12 °C", summary: " ")
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " ")
     ]
     
     struct WeatherTableList: Codable {
@@ -42,8 +42,8 @@ class ForecastViewController: UIViewController {
     func weatherImageNameTableView(for weatherDescription: String) -> String {
         switch weatherDescription.lowercased() {
         case let str where str.contains("clear"): return "sun"
-        case let str where str.contains("overcast clouds"): return "cloudyDay"
-        case let str where str.contains("clouds"): return "cloud"
+        case let str where str.contains("overcast clouds"): return "cloud"
+        case let str where str.contains("clouds"): return "cloudyDay"
         case let str where str.contains("snow"): return "snowing"
         case let str where str.contains("rain"): return "rain"
         default: return "unknown"
@@ -96,6 +96,7 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         
         AF.request(url).responseDecodable(of: WeatherData.self) { response in
             guard let weatherData = response.value else { return }
+            
 //            let weather = self.weatherList[indexPath.row]
 //            let imageName = self.weatherImageNameTableView(for: weather.summary)
             cell.imageLabel.image = UIImage(named: self.weatherImageNameTableView(for: weatherData.weather.first?.description ?? ""))
@@ -107,6 +108,45 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func isWithin5DaysInterval(_ dateString: String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy | HH:mm"
+        
+        guard let date = dateFormatter.date(from: dateString) else {
+            return false // Возвращаем false, если не удалось получить дату из строки
+        }
+        
+        // Получаем текущую дату
+        let currentDate = Date()
+        
+        // Вычисляем дату через 5 дней
+        guard let next5DaysDate = Calendar.current.date(byAdding: .day, value: 5, to: currentDate) else {
+            return false // Возвращаем false, если не удалось вычислить дату через 5 дней
+        }
+        
+        // Проверяем, находится ли дата в интервале ближайших 5 дней
+        return date <= next5DaysDate
+    }
+
+    // Проверка, является ли время в интервале в 3 часа
+    func is3HourInterval(_ dateString: String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy | HH:mm"
+        
+        guard let date = dateFormatter.date(from: dateString) else {
+            return false // Возвращаем false, если не удалось получить дату из строки
+        }
+        
+        // Получаем текущую дату и время
+        let currentDate = Date()
+        
+        // Вычисляем разницу во времени между текущим временем и временем из строки
+        let timeDifference = currentDate.timeIntervalSince(date)
+        
+        // Проверяем, находится ли время в интервале в 3 часа
+        return timeDifference.truncatingRemainder(dividingBy: 3 * 3600) == 0
+    }
+    
     class CustomCell: UITableViewCell {
         var imageLabel = UIImageView()
         var dateLabel = UILabel()
@@ -114,9 +154,13 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         var summaryLabel = UILabel()
         
         func updateDateTime() {
+            var currentDate = Date()
+            let calendar = Calendar.current
+            
+            currentDate = calendar.date(byAdding: .hour, value: 3, to: currentDate) ?? Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "HH:mm"
-            let timeString = dateFormatter.string(from: Date())
+            let timeString = dateFormatter.string(from: currentDate)
             let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
             dateLabel.text = dateString + " | " + timeString
         }

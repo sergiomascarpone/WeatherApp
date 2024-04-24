@@ -55,8 +55,8 @@ class TodayViewController: UIViewController {
     func weatherImageName(for weatherDescription: String) -> String {
         switch weatherDescription.lowercased() {
             case let str where str.contains("clear"): return "sun"
-            case let str where str.contains("overcast clouds"): return "cloudyDay"
-            case let str where str.contains("clouds"): return "cloud"
+            case let str where str.contains("overcast clouds"): return "cloud"
+            case let str where str.contains("clouds"): return "cloudyDay"
             case let str where str.contains("snow"): return "snowing"
             case let str where str.contains("rain"): return "rain"
             default: return "unknown"
