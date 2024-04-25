@@ -96,7 +96,6 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         
         AF.request(url).responseDecodable(of: WeatherData.self) { response in
             guard let weatherData = response.value else { return }
-            
 //            let weather = self.weatherList[indexPath.row]
 //            let imageName = self.weatherImageNameTableView(for: weather.summary)
             cell.imageLabel.image = UIImage(named: self.weatherImageNameTableView(for: weatherData.weather.first?.description ?? ""))
@@ -108,44 +107,44 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func isWithin5DaysInterval(_ dateString: String) -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy | HH:mm"
-        
-        guard let date = dateFormatter.date(from: dateString) else {
-            return false // Возвращаем false, если не удалось получить дату из строки
-        }
-        
-        // Получаем текущую дату
-        let currentDate = Date()
-        
-        // Вычисляем дату через 5 дней
-        guard let next5DaysDate = Calendar.current.date(byAdding: .day, value: 5, to: currentDate) else {
-            return false // Возвращаем false, если не удалось вычислить дату через 5 дней
-        }
-        
-        // Проверяем, находится ли дата в интервале ближайших 5 дней
-        return date <= next5DaysDate
-    }
+//    func isWithin5DaysInterval(_ dateString: String) -> Bool {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd.MM.yyyy | HH:mm"
+//        
+//        guard let date = dateFormatter.date(from: dateString) else {
+//            return false // Возвращаем false, если не удалось получить дату из строки
+//        }
+//        
+//        // Получаем текущую дату
+//        let currentDate = Date()
+//        
+//        // Вычисляем дату через 5 дней
+//        guard let next5DaysDate = Calendar.current.date(byAdding: .day, value: 5, to: currentDate) else {
+//            return false // Возвращаем false, если не удалось вычислить дату через 5 дней
+//        }
+//        
+//        // Проверяем, находится ли дата в интервале ближайших 5 дней
+//        return date <= next5DaysDate
+//    }
 
-    // Проверка, является ли время в интервале в 3 часа
-    func is3HourInterval(_ dateString: String) -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy | HH:mm"
-        
-        guard let date = dateFormatter.date(from: dateString) else {
-            return false // Возвращаем false, если не удалось получить дату из строки
-        }
-        
-        // Получаем текущую дату и время
-        let currentDate = Date()
-        
-        // Вычисляем разницу во времени между текущим временем и временем из строки
-        let timeDifference = currentDate.timeIntervalSince(date)
-        
-        // Проверяем, находится ли время в интервале в 3 часа
-        return timeDifference.truncatingRemainder(dividingBy: 3 * 3600) == 0
-    }
+//    // Проверка, является ли время в интервале в 3 часа
+//    func is3HourInterval(_ dateString: String) -> Bool {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd.MM.yyyy | HH:mm"
+//        
+//        guard let date = dateFormatter.date(from: dateString) else {
+//            return false // Возвращаем false, если не удалось получить дату из строки
+//        }
+//        
+//        // Получаем текущую дату и время
+//        let currentDate = Date()
+//        
+//        // Вычисляем разницу во времени между текущим временем и временем из строки
+//        let timeDifference = currentDate.timeIntervalSince(date)
+//        
+//        // Проверяем, находится ли время в интервале в 3 часа
+//        return timeDifference.truncatingRemainder(dividingBy: 3 * 3600) == 0
+//    }
     
     class CustomCell: UITableViewCell {
         var imageLabel = UIImageView()
