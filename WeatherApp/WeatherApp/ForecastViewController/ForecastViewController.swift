@@ -107,26 +107,6 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-//    func isWithin5DaysInterval(_ dateString: String) -> Bool {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd.MM.yyyy | HH:mm"
-//        
-//        guard let date = dateFormatter.date(from: dateString) else {
-//            return false // Возвращаем false, если не удалось получить дату из строки
-//        }
-//        
-//        // Получаем текущую дату
-//        let currentDate = Date()
-//        
-//        // Вычисляем дату через 5 дней
-//        guard let next5DaysDate = Calendar.current.date(byAdding: .day, value: 5, to: currentDate) else {
-//            return false // Возвращаем false, если не удалось вычислить дату через 5 дней
-//        }
-//        
-//        // Проверяем, находится ли дата в интервале ближайших 5 дней
-//        return date <= next5DaysDate
-//    }
-
 //    // Проверка, является ли время в интервале в 3 часа
 //    func is3HourInterval(_ dateString: String) -> Bool {
 //        let dateFormatter = DateFormatter()
