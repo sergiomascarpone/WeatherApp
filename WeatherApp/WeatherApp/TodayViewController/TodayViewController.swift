@@ -4,7 +4,6 @@
 //
 //  Created by Sergio Mascarpone on 21.02.24.
 //
-
 import Foundation
 import SnapKit
 import UIKit
@@ -152,5 +151,4 @@ extension TodayViewController: TodayWeatherResultDelegate {
     func updateWeatherData(weatherModel: ForecastDTO?) {
         self.updateInfo(weatherModel)
     }
-    
 }
