@@ -4,7 +4,6 @@
 //
 //  Created by Sergio Mascarpone on 22.02.24.
 //
-
 import SnapKit
 import UIKit
 import Alamofire
@@ -106,7 +105,7 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-    
+
 //    // Проверка, является ли время в интервале в 3 часа
 //    func is3HourInterval(_ dateString: String) -> Bool {
 //        let dateFormatter = DateFormatter()

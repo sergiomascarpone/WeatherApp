@@ -45,17 +45,10 @@ struct WeatherData: Decodable {
     struct Weather: Decodable {
         let description: String
         var icon: String
-//        var weatherIconURL: URL {
-//            let urlString = "https://openweathermap.org/img/wn/10d@2x.png"
-//            return URL(string: urlString)!
-//        }
     }
     
     struct WeatherResponse: Decodable {
         let list: [WeatherData]
     }
-    
-    //    struct Pop: Decodable {
-    //        let pop: Double
-    //    }
+  
 }
