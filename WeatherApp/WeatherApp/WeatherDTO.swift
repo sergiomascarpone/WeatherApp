@@ -50,5 +50,5 @@ struct WeatherData: Decodable {
     struct WeatherResponse: Decodable {
         let list: [WeatherData]
     }
-  
+
 }
