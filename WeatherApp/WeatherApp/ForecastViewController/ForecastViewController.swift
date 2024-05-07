@@ -117,7 +117,7 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
 //        // Получаем текущую дату и время
 //        let currentDate = Date()
 //        // Вычисляем разницу во времени между текущим временем и временем из строки
-//        let timeDifference = currentDate.timeIntervalSince(date)        
+//        let timeDifference = currentDate.timeIntervalSince(date)
 //        // Проверяем, находится ли время в интервале в 3 часа
 //        return timeDifference.truncatingRemainder(dividingBy: 3 * 3600) == 0
 //    }
@@ -129,10 +129,10 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         var summaryLabel = UILabel()
         
         func updateDateTime() {
-            var currentDate = Date()
-            let calendar = Calendar.current
+            let currentDate = Date()
+//            let calendar = Calendar.current
             
-            currentDate = calendar.date(byAdding: .hour, value: 3, to: currentDate) ?? Date()
+//            currentDate = calendar.date(byAdding: .hour, value: 3, to: currentDate) ?? Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "HH:mm"
             let timeString = dateFormatter.string(from: currentDate)
