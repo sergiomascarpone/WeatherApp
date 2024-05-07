@@ -115,10 +115,9 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
 //            return false // Возвращаем false, если не удалось получить дату из строки
 //        }
 //        // Получаем текущую дату и время
-//        let currentDate = Date()       
+//        let currentDate = Date()
 //        // Вычисляем разницу во времени между текущим временем и временем из строки
-//        let timeDifference = currentDate.timeIntervalSince(date)
-//        
+//        let timeDifference = currentDate.timeIntervalSince(date)        
 //        // Проверяем, находится ли время в интервале в 3 часа
 //        return timeDifference.truncatingRemainder(dividingBy: 3 * 3600) == 0
 //    }
