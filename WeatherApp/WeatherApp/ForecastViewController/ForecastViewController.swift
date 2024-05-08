@@ -14,7 +14,7 @@ class ForecastViewController: UIViewController {
     private lazy var tableView = UITableView()
     private var initialDate = Date() // Первоначальная дата и время
     private let timeInterval: TimeInterval = 3 * 60 * 60 // Смещение времени на 3 часа
-       
+    
     
     private var weatherList: [WeatherTableList] = [
         WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
@@ -90,6 +90,7 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         return weatherList.count
     }
     
+    //MARK: - SetUpTableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
         
@@ -99,8 +100,8 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         AF.request(url).responseDecodable(of: WeatherData.self) { response in
             guard let weatherData = response.value else { return }
             let newDate = Calendar.current.date(byAdding: .second, value: Int(self.timeInterval * Double(indexPath.row)), to: self.initialDate) ?? Date()
-//            let weather = self.weatherList[indexPath.row]
-//            let imageName = self.weatherImageNameTableView(for: weather.summary)
+            //            let weather = self.weatherList[indexPath.row]
+            //            let imageName = self.weatherImageNameTableView(for: weather.summary)
             cell.imageLabel.image = UIImage(named: self.weatherImageNameTableView(for: weatherData.weather.first?.description ?? ""))
             cell.updateDateTime(with: newDate)
             cell.temperatureLabel.text = "\(weatherData.main.temp) °C"
@@ -109,7 +110,7 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-
+    
     
     class CustomCell: UITableViewCell {
         var imageLabel = UIImageView()
@@ -118,12 +119,12 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         var summaryLabel = UILabel()
         
         func updateDateTime(with date: Date) {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "HH:mm"
-                let timeString = dateFormatter.string(from: date)
-                let dateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
-                dateLabel.text = dateString + " | " + timeString
-            }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            let timeString = dateFormatter.string(from: date)
+            let dateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+            dateLabel.text = dateString + " | " + timeString
+        }
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
