@@ -12,6 +12,9 @@ class ForecastViewController: UIViewController {
     
     private lazy var forecastLabel = UITextField()
     private lazy var tableView = UITableView()
+    private var initialDate = Date() // Первоначальная дата и время
+    private let timeInterval: TimeInterval = 3 * 60 * 60 // Смещение времени на 3 часа
+       
     
     private var weatherList: [WeatherTableList] = [
         WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
@@ -95,10 +98,11 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         
         AF.request(url).responseDecodable(of: WeatherData.self) { response in
             guard let weatherData = response.value else { return }
+            let newDate = Calendar.current.date(byAdding: .second, value: Int(self.timeInterval * Double(indexPath.row)), to: self.initialDate) ?? Date()
 //            let weather = self.weatherList[indexPath.row]
 //            let imageName = self.weatherImageNameTableView(for: weather.summary)
             cell.imageLabel.image = UIImage(named: self.weatherImageNameTableView(for: weatherData.weather.first?.description ?? ""))
-            cell.updateDateTime()
+            cell.updateDateTime(with: newDate)
             cell.temperatureLabel.text = "\(weatherData.main.temp) °C"
             
             cell.summaryLabel.text = "\(weatherData.weather.first?.description ?? "Unknown")"
@@ -106,21 +110,6 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-//    // Проверка, является ли время в интервале в 3 часа
-//    func is3HourInterval(_ dateString: String) -> Bool {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd.MM.yyyy | HH:mm"
-//        
-//        guard let date = dateFormatter.date(from: dateString) else {
-//            return false // Возвращаем false, если не удалось получить дату из строки
-//        }
-//        // Получаем текущую дату и время
-//        let currentDate = Date()
-//        // Вычисляем разницу во времени между текущим временем и временем из строки
-//        let timeDifference = currentDate.timeIntervalSince(date)
-//        // Проверяем, находится ли время в интервале в 3 часа
-//        return timeDifference.truncatingRemainder(dividingBy: 3 * 3600) == 0
-//    }
     
     class CustomCell: UITableViewCell {
         var imageLabel = UIImageView()
@@ -128,17 +117,13 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         var temperatureLabel = UILabel()
         var summaryLabel = UILabel()
         
-        func updateDateTime() {
-            let currentDate = Date()
-//            let calendar = Calendar.current
-            
-//            currentDate = calendar.date(byAdding: .hour, value: 3, to: currentDate) ?? Date()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "HH:mm"
-            let timeString = dateFormatter.string(from: currentDate)
-            let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none) // Получаем текущую дату
-            dateLabel.text = dateString + " | " + timeString
-        }
+        func updateDateTime(with date: Date) {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "HH:mm"
+                let timeString = dateFormatter.string(from: date)
+                let dateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+                dateLabel.text = dateString + " | " + timeString
+            }
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
