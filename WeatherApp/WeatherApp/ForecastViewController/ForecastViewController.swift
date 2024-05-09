@@ -23,6 +23,13 @@ class ForecastViewController: UIViewController {
         WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
         WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
         WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
+        WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " "),
         WeatherTableList(image: " ", date: "23.12.2024 | 00:00", temperature: "°C", summary: " ")
     ]
     
@@ -105,12 +112,10 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageLabel.image = UIImage(named: self.weatherImageNameTableView(for: weatherData.weather.first?.description ?? ""))
             cell.updateDateTime(with: newDate)
             cell.temperatureLabel.text = "\(weatherData.main.temp) °C"
-            
             cell.summaryLabel.text = "\(weatherData.weather.first?.description ?? "Unknown")"
         }
         return cell
     }
-    
     
     class CustomCell: UITableViewCell {
         var imageLabel = UIImageView()
