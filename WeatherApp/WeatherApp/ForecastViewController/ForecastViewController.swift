@@ -46,6 +46,7 @@ class ForecastViewController: UIViewController {
         configureTableView()
         forecastInitialize()
     }
+    
     // Изменение изображения в зависимости от погоды - работает)
     func weatherImageNameTableView(for weatherDescription: String) -> String {
         switch weatherDescription.lowercased() {

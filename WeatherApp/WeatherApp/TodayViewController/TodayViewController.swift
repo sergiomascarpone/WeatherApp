@@ -76,11 +76,9 @@ class TodayViewController: UIViewController {
         self.todayWeatherInfoView.windyLabel.text = "\(weatherData.wind.speed) km/h"
         self.todayWeatherInfoView.termometerLabel.text = "\(weatherData.main.humidity) mm"
         self.todayWeatherInfoView.pressureLabel.text = "\(weatherData.main.pressure) hPa"
-        
         //Вывод и конвертирование, направления ветра.
         let windDirection = presenter.defineWindDirection(degree: weatherData.wind.deg)
         self.todayWeatherInfoView.windSockLabel.text = windDirection
-
         //Вывод иконки по описанию погоды.
         self.imageView.image = UIImage(named: weatherImageName(for: weatherData.weather.first?.description ?? ""))
     }
