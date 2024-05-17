@@ -3,7 +3,6 @@
 //  WeatherApp
 //
 //  Created by Sergio Mascarpone on 2.04.24.
-//
 
 import Foundation
 import SwiftyJSON
@@ -20,7 +19,6 @@ final public class WeatherService {
     typealias WeatherRequest = (_ forecasts: [ForecastDTO]?, _ errorMessage: String?) -> ()
     
     // MARK: - Helper Methods
-    
     class func getResponse(type: TypeOfWeatherRequest, completion: @escaping WeatherRequest) {
         
         guard let latitudes = (UserDefaults.standard.object(forKey: Constants.latitudesKey.rawValue) as? Float),
@@ -53,7 +51,6 @@ final public class WeatherService {
     }
     
     // MARK: - Requesting Data
-    
     func forecastWeatherDataFor(type: TypeOfWeatherRequest, lat: Float, lon: Float, completion: @escaping WeatherDataCompletion) {
         
         AF.request(APIRouter.getCurrentWeather(type, lat, lon)).responseData { response in
