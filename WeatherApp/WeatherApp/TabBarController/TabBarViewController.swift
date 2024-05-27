@@ -25,7 +25,7 @@ class TabBarViewController: UITabBarController {
         viewControllers = [
             createNavigationController(for: todayWeatherController, title: "Today", image: UIImage(systemName: "sun.max")), //Весь текст нужно будет вынести в локализацию
             createNavigationController(for: fiveDaysWeatherController, title: "Forecast", image: UIImage(systemName: "cloud.sun.rain")) //Локализация не касается названий картинок
-            //Названия картинок можно вынести в константы
+        //Названия картинок можно вынести в константы
         ]
     }
     
