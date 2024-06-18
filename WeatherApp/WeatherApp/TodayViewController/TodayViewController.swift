@@ -18,12 +18,14 @@ class TodayViewController: UIViewController {
     private lazy var temperatureLabel = UILabel()
     private lazy var shareButton = UIButton()
     let weatherManager = WeatherManager()
+    let locationManager = LocationManager()
     private var presenter: TodayWeatherPresenterProtocol
     
     init(presenter: TodayWeatherPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
         self.presenter.todayWeatherResultDelegate = self
+        self.locationManager.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -37,28 +39,22 @@ class TodayViewController: UIViewController {
         //Создание экземпляра из XIB.
         todayWeatherInfoView = TodayWeatherInfo()
         self.view.addSubview(todayWeatherInfoView)
-                todayWeatherInfoView.snp.makeConstraints { make in
-                    make.top.centerY.equalTo(340)
-    }
-        
-        weatherManager.fetchWeatherData { [weak self] weatherData in
-            guard weatherData != nil else { return }
-            
-            DispatchQueue.main.async {
-                self?.displayWeatherData(weatherData!)
-            }
+        todayWeatherInfoView.snp.makeConstraints { make in
+            make.top.centerY.equalTo(340)
         }
+        
+        locationManager.requestLocation()
     }
     
     // Изменение изображения в зависимости от погоды - работает)
     func weatherImageName(for weatherDescription: String) -> String {
         switch weatherDescription.lowercased() {
-            case let str where str.contains("clear"): return "sun"
-            case let str where str.contains("overcast clouds"): return "cloud"
-            case let str where str.contains("clouds"): return "cloudyDay"
-            case let str where str.contains("snow"): return "snowing"
-            case let str where str.contains("rain"): return "rain"
-            default: return "unknown"
+        case let str where str.contains("clear"): return "sun"
+        case let str where str.contains("overcast clouds"): return "cloud"
+        case let str where str.contains("clouds"): return "cloudyDay"
+        case let str where str.contains("snow"): return "snowing"
+        case let str where str.contains("rain"): return "rain"
+        default: return "unknown"
         }
     }
     
@@ -66,19 +62,20 @@ class TodayViewController: UIViewController {
         super.viewWillAppear(animated)
         self.presenter.requestLocationIfNeeded()
     }
-   
+    
     // Вывод данных о погоде на экран
     func displayWeatherData(_ weatherData: WeatherData) {
-        
         self.cityNameLocationLabel.text = "\(weatherData.name)"
         self.temperatureLabel.text = "\(weatherData.main.temp)°C | \(weatherData.weather.first?.description ?? "Unknown")"
         self.todayWeatherInfoView.humidLabel.text = "\(weatherData.main.humidity) %"
         self.todayWeatherInfoView.windyLabel.text = "\(weatherData.wind.speed) km/h"
         self.todayWeatherInfoView.termometerLabel.text = "\(weatherData.main.humidity) mm"
         self.todayWeatherInfoView.pressureLabel.text = "\(weatherData.main.pressure) hPa"
-        //Вывод и конвертирование, направления ветра.
+        
+        //Вывод и конвертирование направления ветра.
         let windDirection = presenter.defineWindDirection(degree: weatherData.wind.deg)
         self.todayWeatherInfoView.windSockLabel.text = windDirection
+        
         //Вывод иконки по описанию погоды.
         self.imageView.image = UIImage(named: weatherImageName(for: weatherData.weather.first?.description ?? ""))
     }
@@ -98,7 +95,7 @@ class TodayViewController: UIViewController {
         }
         
         //cityNameLocationLabel
-        cityNameLocationLabel.text = " "
+        cityNameLocationLabel.text = ""
         cityNameLocationLabel.font = UIFont(name: "AmericanTypewriter", size: 30)
         view.addSubview(cityNameLocationLabel)
         cityNameLocationLabel.snp.makeConstraints { maker in
@@ -148,5 +145,21 @@ extension TodayViewController: TodayWeatherResultDelegate {
     
     func updateWeatherData(weatherModel: ForecastDTO?) {
         self.updateInfo(weatherModel)
+    }
+}
+
+extension TodayViewController: LocationManagerDelegate {
+    func didUpdateLocation(latitude: Double, longitude: Double) {
+        weatherManager.fetchWeatherData(latitude: latitude, longitude: longitude) { [weak self] weatherData in
+            guard let weatherData = weatherData else { return }
+            
+            DispatchQueue.main.async {
+                self?.displayWeatherData(weatherData)
+            }
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        print("Failed to get user's location: \(error.localizedDescription)")
     }
 }
